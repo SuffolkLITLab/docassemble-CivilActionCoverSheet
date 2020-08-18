@@ -1,9 +1,0 @@
-comment: |
-  Packages two files to provide a quick quick exit button for sensitive interviews.
-  
-  Will not be compatible with all browsers. JQuery doesn't offer that kind of support.
----
-features:
-  javascript: escape.js
-  css: escape.css
----
