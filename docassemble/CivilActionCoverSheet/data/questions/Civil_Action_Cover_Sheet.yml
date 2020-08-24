@@ -257,7 +257,8 @@ id: contract claims
 question: |
   Does this action involve contract claims?
 subquestion: |
-  If this civil action involves contract claims, provide a description of those claims and the total dollar value of the claims. Otherwise, skip this question. 
+  If this civil action involves contract claims, provide a description of those claims and the total dollar value of the claims. All expenses should be rounded to the nearest dollar. 
+  Otherwise, skip this question. 
 fields:
   - 'Total contract claims': total_contract_claims
     datatype: currency
@@ -292,7 +293,7 @@ continue button field: Does_Plaintiff_have_other_documented_damages
 question: |
   Does Plaintiff have other documented damages?
 subquestion: |
-  If the Plaintiff incurred any other damages related to the actions covered in this claim, enter the total amount and describe the additional damages here. These damages may require documentation. 
+  If the Plaintiff incurred any other damages related to the actions covered in this claim, enter the total amount and describe the additional damages here. These damages may require documentation. All expenses should be rounded to the nearest dollar. 
 fields:
   - 'Other documented damages': documented_damages
     datatype: currency
@@ -450,7 +451,7 @@ fields:
 ---
 id: other damages
 question: |
-  Placeholder text: What are your other damages?
+  Placeholder text: What are your other damages? All expenses should be rounded to the nearest dollar. 
 subquestion: |
   Placeholder text
 fields:
@@ -508,7 +509,7 @@ fields:
     step: 1
     required: False
     help: |
-      You can include all expenses incurred with a hospital visit, like emergency room charges, supplies, overnight stays, etc. Do not include expenses that were charged by your doctor or ambulance company, chiropractor, or physical therapist (they are covered separately).
+      You can include all expenses incurred with a hospital visit, like emergency room charges, supplies, overnight stays, etc. Do not include expenses that were charged by your doctor or ambulance company, chiropractor, or physical therapist (they are covered separately). All expenses should be rounded to the nearest dollar. 
   - 'Doctor expenses': documented_medical_expenses_doctor
     datatype: currency
     step: 1
