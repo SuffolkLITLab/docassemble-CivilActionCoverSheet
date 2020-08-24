@@ -277,9 +277,9 @@ code: |
 ---
 id: plaintiff injury
 question: |
-  Describe Plaintiff's injury
+  Summarise the injury
 subquestion: |
-  Include the nature and extent of injury.
+  Include the nature and extent of the injury.
 fields:
   - "Description of plaintiff's injury": description_plaintiff_injury
     required: false
