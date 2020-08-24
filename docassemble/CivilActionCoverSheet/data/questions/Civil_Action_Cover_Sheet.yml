@@ -259,7 +259,7 @@ question: |
 subquestion: |
   If this civil action involves contract claims, provide a description of those claims and the total dollar value of the claims. Otherwise, skip this question. 
 fields:
-  - 'Total contract claims': total_contract_claims
+  - 'Dollar value of contract claims': total_contract_claims
     datatype: currency
     required: False
     help: |
