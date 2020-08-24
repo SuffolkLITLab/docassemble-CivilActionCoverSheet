@@ -448,9 +448,7 @@ fields:
 ---
 id: other damages
 question: |
-  Placeholder text: What are your other damages?
-subquestion: |
-  Placeholder text
+  What are the other damages?
 fields:
   - 'Documented lost wages and compensation': documented_lost_wages
     datatype: currency
