@@ -289,7 +289,7 @@ fields:
 id: other documented damages
 continue button field: Does_Plaintiff_have_other_documented_damages
 question: |
-  Does Plaintiff have other documented damages?
+  Are there other documented damages?
 subquestion: |
   If the Plaintiff incurred any other damages related to the actions covered in this claim, enter the total amount and describe the additional damages here. These damages may require documentation. 
 fields:
