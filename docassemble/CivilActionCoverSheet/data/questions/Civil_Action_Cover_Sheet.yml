@@ -493,7 +493,7 @@ code: |
 ---
 id: documented medical expenses
 question: |
-  What are your documented medical expenses to date?
+  What are the documented medical expenses to date?
 subquestion: |
   Enter the total amount, in dollars, of documented medical expenses incurred in connection with this claim. 
 fields:
