@@ -253,6 +253,21 @@ fields:
       name_suffix()
     required: False
 ---
+id: attorney certification
+question: |
+  Attorney Certification
+subquestion: |
+  I certify that I have complied with requirements of Rule 5 of the Supreme Judicial Court Uniform Rules on Dispute Resolution ([SJC Rule 1:18](https://www.mass.gov/doc/supreme-judicial-court-rule-118-the-uniform-rules-on-dispute-resolution-including-explanatory/download#:~:text=Court%2DConnected%20ADR%20is%20governed,more%20options%20in%20resolving%20disputes)) requiring that I provide my clients with information about court-connected dispute resolution services and discuss with them the advantages and disadvantages of the various methods of dispute resolution. 
+fields:
+  - no label: agrees_to_certify
+    datatype: checkboxes
+    minlength: 1
+    choices:
+      - I certify
+    validation messages:
+      minlength: |
+        You cannot continue unless you check this box.
+---
 id: contract claims
 question: |
   Does this action involve contract claims?
@@ -757,6 +772,7 @@ code: |
   preferred_court = interview_metadata["Civil_Action_Cover_Sheet0026"]["preferred court"]
   allowed_courts = interview_metadata["Civil_Action_Cover_Sheet0026"]["allowed courts"]
   if is_attorney and is_representing_plaintiff:
+    agrees_to_certify
     attorney.name.first
     attorney.address.address
   plaintiffs[0].address.address
