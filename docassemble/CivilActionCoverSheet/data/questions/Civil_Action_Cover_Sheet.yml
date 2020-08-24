@@ -283,6 +283,7 @@ subquestion: |
 fields:
   - "Description of plaintiff's injury": description_plaintiff_injury
     required: false
+    input type: area
     minlength: 0
     maxlength: 120
     help: |
