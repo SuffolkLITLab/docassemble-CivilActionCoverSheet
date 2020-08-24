@@ -780,7 +780,7 @@ code: |
   str(plaintiffs[0])
   courts[0].address.county
   str(defendants[0])
-  str(attorney)
+  # str(attorney)
   # By default, we'll mark any un-filled fields as DAEmpty(). This helps avoid errors if you intentionally hide a logic branch or mark a question not required
   # Comment out the line below if you don't want this behavior. 
   # mark_unfilled_fields_empty(interview_metadata["Civil_Action_Cover_Sheet0026"])
