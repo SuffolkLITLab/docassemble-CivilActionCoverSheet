@@ -225,8 +225,6 @@ objects:
 id: representation
 question: |
   Representation
-subquestion: |
-  Placeholder text
 fields:
   - Are you an attorney?: is_attorney
     datatype: yesnoradio
