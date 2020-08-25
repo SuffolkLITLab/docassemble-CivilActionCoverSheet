@@ -752,13 +752,6 @@ attachment:
       - "certification_signature_date": ${ certification_signature_date }
       - "certification_signature": ${ certification_signature }
 ---
-id: introduction page
-continue button field: Civil_Action_Cover_Sheet0026_intro
-question: |
-  Civil Action Cover Sheet
-subquestion: |
-  A civil cover sheet must be filed with each complaint in Superior Court.
----
 code: |
   interview_short_title = "File a Cover Sheet for your Superior Court civil action"
 ---
@@ -766,7 +759,6 @@ id: interview_order_Civil_Action_Cover_Sheet0026
 code: |
   user_role = "plaintiff"
   basic_questions_intro_screen 
-  Civil_Action_Cover_Sheet0026_intro
   # Set the preferred/allowed courts for this interview
   preferred_court = interview_metadata["Civil_Action_Cover_Sheet0026"]["preferred court"]
   allowed_courts = interview_metadata["Civil_Action_Cover_Sheet0026"]["allowed courts"]
