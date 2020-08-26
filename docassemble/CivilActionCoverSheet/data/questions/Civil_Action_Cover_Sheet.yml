@@ -268,12 +268,13 @@ fields:
 ---
 id: contract claims
 question: |
-  Does this action involve contract claims?
+  Contract claims
 subquestion: |
-  If this civil action involves contract claims, provide a description of those claims and the total dollar value of the claims. Otherwise, skip this question. 
+  Provide a brief description of the contract claims and their total dollar value. Round claim amounts to the nearest dollar. 
 fields:
   - 'Dollar value of contract claims': total_contract_claims
     datatype: currency
+    step: 1
     required: False
     help: |
       Provide instructions on calculating contact claims.
