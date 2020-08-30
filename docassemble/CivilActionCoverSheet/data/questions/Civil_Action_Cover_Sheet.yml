@@ -270,10 +270,12 @@ id: contract claims
 question: |
   Does this action involve contract claims?
 subquestion: |
-  If this civil action involves contract claims, provide a description of those claims and the total dollar value of the claims. Otherwise, skip this question. 
+  If this civil action involves contract claims, provide a description of those claims and the total dollar value of the claims. Round expenses to the nearest dollar. 
+  Otherwise, skip this question. 
 fields:
   - 'Dollar value of contract claims': total_contract_claims
     datatype: currency
+    step: 1
     required: False
     help: |
       Provide instructions on calculating contact claims.
@@ -307,10 +309,11 @@ continue button field: Does_Plaintiff_have_other_documented_damages
 question: |
   Are there other documented damages?
 subquestion: |
-  If the Plaintiff incurred any other damages related to the actions covered in this claim, enter the total amount and describe the additional damages here. These damages may require documentation. 
+  If the Plaintiff incurred any other damages related to the actions covered in this claim, enter the total amount and describe the additional damages here. These damages may require documentation. Round expenses to the nearest dollar. 
 fields:
   - 'Other documented damages': documented_damages
     datatype: currency
+    step: 1
     required: False
   - 'Description of other documented damages': documented_items_of_damages_other
     required: False
@@ -464,25 +467,29 @@ fields:
 ---
 id: other damages
 question: |
-  What are the other damages?
+  What are the other damages? Round expenses to the nearest dollar. 
 fields:
   - 'Documented lost wages and compensation': documented_lost_wages
     datatype: currency
+    step: 1
     required: False
     help: |
       Insert help text that explains lost wages and compensation.
   - 'Documented property damages': documented_property_damages
     datatype: currency
+    step: 1
     required: False
     help: |
       Insert help text that describes property damages.
   - 'Anticipated future medical expenses': anticipated_future_medical_expenses
     datatype: currency
+    step: 1
     required: False
     help: |
       Provide details on how to calculate this number.
   - 'Anticipated lost wages': anticipated_lost_wages
     datatype: currency
+    step: 1
     required: False
     help: |
       Provide details on how to calculate this amount.
@@ -513,26 +520,31 @@ subquestion: |
 fields:
   - 'Hospital expenses': documented_medical_expenses_hospital
     datatype: currency
+    step: 1
     required: False
     help: |
-      You can include all expenses incurred with a hospital visit, like emergency room charges, supplies, overnight stays, etc. Do not include expenses that were charged by your doctor or ambulance company, chiropractor, or physical therapist (they are covered separately).
+      You can include all expenses incurred with a hospital visit, like emergency room charges, supplies, overnight stays, etc. Do not include expenses that were charged by your doctor or ambulance company, chiropractor, or physical therapist (they are covered separately). Round expenses to the nearest dollar. 
   - 'Doctor expenses': documented_medical_expenses_doctor
     datatype: currency
+    step: 1
     required: False
     help: |
       You can include all costs related to doctor visits. Do not include expenses that were charged by chiropractors, physical therapists, or other providers (they are covered separately).
   - 'Chiropractic expenses': documented_medical_expenses_chiropractic
     datatype: currency
+    step: 1
     required: False
     help: |
       You can include all costs related to chiropractor visits. Do not include expenses that were charged by doctors, physical therapists, or other providers (they are covered separately).
   - 'Physical therapy expenses': documented_medical_expenses_physical_therapy
     datatype: currency
+    step: 1
     required: False
     help: |
       You can include all expenses related to physical therapy. Do not include expenses that were charged by your hospital, ambulance company, chiropractor, or doctor (they are covered separately).
   - 'Other documented medical expenses': documented_medical_expenses_other
     datatype: currency
+    step: 1
     required: False
     help: |
       Include all documented medical expenses incurred in connection with this claim that have not been provided in the hospital, doctor, chiropractor, or physical therapy sections.
