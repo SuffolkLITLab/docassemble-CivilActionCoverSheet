@@ -225,8 +225,6 @@ objects:
 id: representation
 question: |
   Representation
-subquestion: |
-  Placeholder text
 fields:
   - Are you an attorney?: is_attorney
     datatype: yesnoradio
@@ -253,6 +251,21 @@ fields:
       name_suffix()
     required: False
 ---
+id: attorney certification
+question: |
+  Attorney Certification
+subquestion: |
+  I certify that I have complied with requirements of Rule 5 of the Supreme Judicial Court Uniform Rules on Dispute Resolution ([SJC Rule 1:18](https://www.mass.gov/doc/supreme-judicial-court-rule-118-the-uniform-rules-on-dispute-resolution-including-explanatory/download#:~:text=Court%2DConnected%20ADR%20is%20governed,more%20options%20in%20resolving%20disputes)) requiring that I provide my clients with information about court-connected dispute resolution services and discuss with them the advantages and disadvantages of the various methods of dispute resolution. 
+fields:
+  - no label: agrees_to_certify
+    datatype: checkboxes
+    minlength: 1
+    choices:
+      - I certify
+    validation messages:
+      minlength: |
+        You cannot continue unless you check this box.
+---
 id: contract claims
 question: |
   Does this action involve contract claims?
@@ -260,7 +273,7 @@ subquestion: |
   If this civil action involves contract claims, provide a description of those claims and the total dollar value of the claims. Round expenses to the nearest dollar. 
   Otherwise, skip this question. 
 fields:
-  - 'Total contract claims': total_contract_claims
+  - 'Dollar value of contract claims': total_contract_claims
     datatype: currency
     step: 1
     required: False
@@ -285,13 +298,16 @@ subquestion: |
 fields:
   - "Description of plaintiff's injury": description_plaintiff_injury
     required: false
+    input type: area
+    minlength: 0
+    maxlength: 120
     help: |
       Provide example injury description.
 ---
 id: other documented damages
 continue button field: Does_Plaintiff_have_other_documented_damages
 question: |
-  Does Plaintiff have other documented damages?
+  Are there other documented damages?
 subquestion: |
   If the Plaintiff incurred any other damages related to the actions covered in this claim, enter the total amount and describe the additional damages here. These damages may require documentation. Round expenses to the nearest dollar. 
 fields:
@@ -451,9 +467,7 @@ fields:
 ---
 id: other damages
 question: |
-  Placeholder text: What are your other damages? Round expenses to the nearest dollar. 
-subquestion: |
-  Placeholder text
+  What are the other damages? Round expenses to the nearest dollar. 
 fields:
   - 'Documented lost wages and compensation': documented_lost_wages
     datatype: currency
@@ -500,7 +514,7 @@ code: |
 ---
 id: documented medical expenses
 question: |
-  What are your documented medical expenses to date?
+  What are the documented medical expenses to date?
 subquestion: |
   Enter the total amount, in dollars, of documented medical expenses incurred in connection with this claim. 
 fields:
@@ -750,13 +764,6 @@ attachment:
       - "certification_signature_date": ${ certification_signature_date }
       - "certification_signature": ${ certification_signature }
 ---
-id: introduction page
-continue button field: Civil_Action_Cover_Sheet0026_intro
-question: |
-  Civil Action Cover Sheet
-subquestion: |
-  A civil cover sheet must be filed with each complaint in Superior Court.
----
 code: |
   interview_short_title = "File a Cover Sheet for your Superior Court civil action"
 ---
@@ -764,11 +771,11 @@ id: interview_order_Civil_Action_Cover_Sheet0026
 code: |
   user_role = "plaintiff"
   basic_questions_intro_screen 
-  Civil_Action_Cover_Sheet0026_intro
   # Set the preferred/allowed courts for this interview
   preferred_court = interview_metadata["Civil_Action_Cover_Sheet0026"]["preferred court"]
   allowed_courts = interview_metadata["Civil_Action_Cover_Sheet0026"]["allowed courts"]
   if is_attorney and is_representing_plaintiff:
+    agrees_to_certify
     attorney.name.first
     attorney.address.address
   plaintiffs[0].address.address
