@@ -277,7 +277,7 @@ code: |
 ---
 id: plaintiff injury
 question: |
-  Summarise the injury
+  Summarize the injury
 subquestion: |
   Include the nature and extent of the injury.
 fields:
