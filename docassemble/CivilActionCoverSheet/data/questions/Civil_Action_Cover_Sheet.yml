@@ -226,11 +226,8 @@ id: representation
 question: |
   Representation
 fields:
-  - Are you an attorney?: is_attorney
+  - Are you an attorney representing a plaintiff?: is_representing_plaintiff
     datatype: yesnoradio
-  - Are you representing a plaintiff?: is_representing_plaintiff
-    datatype: yesnoradio
-    show if: is_attorney
   - 'Attorney BBO Number': users[0].bbo_number
     show if:
       variable: is_representing_plaintiff
@@ -773,7 +770,7 @@ code: |
   # Set the preferred/allowed courts for this interview
   preferred_court = interview_metadata["Civil_Action_Cover_Sheet0026"]["preferred court"]
   allowed_courts = interview_metadata["Civil_Action_Cover_Sheet0026"]["allowed courts"]
-  if is_attorney and is_representing_plaintiff:
+  if is_representing_plaintiff:
     agrees_to_certify
     attorney.name.first
     attorney.address.address
