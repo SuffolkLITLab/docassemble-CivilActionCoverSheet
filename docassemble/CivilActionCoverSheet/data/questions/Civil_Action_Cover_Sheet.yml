@@ -262,6 +262,8 @@ fields:
     validation messages:
       minlength: |
         You cannot continue unless you check this box.
+  - 'Date of certification': certification_signature_date
+    datatype: date
 ---
 id: contract claims
 question: |
@@ -439,8 +441,6 @@ subquestion: |
   Show ${ showifdef('related_actions_description') }
 fields:
   - 'Date of user signature': users[0].signature_date
-    datatype: date
-  - 'Date of certification signature': certification_signature_date
     datatype: date
 ---
 id: action and track designation
