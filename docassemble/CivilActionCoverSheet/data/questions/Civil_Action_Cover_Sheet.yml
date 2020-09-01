@@ -672,12 +672,14 @@ question: |
 subquestion: |
   % if not defined('email_success') or not email_success:
   Thank you ${users[0]}. Your form is ready to send to the court. **It is not
-  delivered until you complete the delivery process below.**
+  delivered until you complete the delivery process below.** 
+  
   1. Click the preview image below to open the form in a new window. Correct any errors using the "Make changes" button below.
   2. Download and save or print a copy of this form for your 
   records.
   3. Click the "Submit to ${courts[0]}" button to send it to the court. 
-  4. You will have a chance to add instructions to the clerk and see the cover page before final delivery.
+  4. You will have a chance to add instructions to the clerk and see the cover page before final delivery. 
+  
   % else:
   If you do not hear from the court in 1 business day, call the Trial Court's
   Emergency HelpLine 833-91-COURT (833-912-6878).
@@ -686,9 +688,12 @@ subquestion: |
   Monday - Friday.
   % endif
   ${ form_to_file_no_cover }  
+  
   ${action_button_html(url_action('review_all_sections'), icon='edit', label=word("Make changes"))}
+  
   % if not defined('email_success') or not email_success:
     ${ action_button_html( url_action('form_delivery_complete'), id_tag="submitToCourt", label="Submit to " + str(courts[0].name), icon=send_icon, size="md", color="primary")}
+    
   Or download/email below:
   % else:
     Your email has already been delivered to ${courts[0]}
