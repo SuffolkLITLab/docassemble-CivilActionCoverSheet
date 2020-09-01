@@ -303,16 +303,20 @@ fields:
 id: other documented damages
 continue button field: Does_Plaintiff_have_other_documented_damages
 question: |
-  Are there other documented damages?
+  Other documented damages
 subquestion: |
-  If the Plaintiff incurred any other damages related to the actions covered in this claim, enter the total amount and describe the additional damages here. These damages may require documentation. Round expenses to the nearest dollar. 
+ If the Plaintiff incurred any other damages related to the actions covered in this claim that are not included above, enter the total amount along with a description of the additional damages. Note that these damages may require documentation. 
+ Round expenses to the nearest dollar. 
 fields:
   - 'Other documented damages': documented_damages
     datatype: currency
     step: 1
     required: False
+    help: |
+      Insert help text that descibes other documented damages.
   - 'Description of other documented damages': documented_items_of_damages_other
     required: False
+    input type: area
     help: |
       Provide examples of types of additional damages that can be listed here.
 ---
