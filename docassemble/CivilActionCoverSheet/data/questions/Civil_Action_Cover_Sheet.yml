@@ -263,6 +263,32 @@ fields:
       minlength: |
         You cannot continue unless you check this box.
 ---
+id: plaintiffs address
+question: |
+  % if is_representing_plaintiff:
+  What is your client's address?
+  % else:
+  What is your address?
+  % endif
+subquestion: |
+  % if is_representing_plaintiff:
+  
+  % else:
+  What address should the court use to mail papers to you?
+  % endif
+fields:
+  - Street address: users[0].address.address
+    address autocomplete: True
+  - Unit: users[0].address.unit
+    required: False
+  - City: users[0].address.city
+  - State: users[0].address.state
+    code: |
+      states_list()
+    default: MA      
+  - Zip: users[0].address.zip
+    required: False
+---
 id: contract claims
 question: |
   Contract claims
@@ -783,7 +809,7 @@ code: |
     agrees_to_certify
     attorney.name.first
     attorney.address.address
-  plaintiffs[0].address.address
+  users[0].address.address
   defendants[0].address.address
   jury_claim_made_yes
   code_number
