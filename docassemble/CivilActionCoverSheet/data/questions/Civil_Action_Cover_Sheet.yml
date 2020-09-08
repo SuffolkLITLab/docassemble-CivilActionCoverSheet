@@ -413,9 +413,6 @@ comment: |
       required: False
         show if: has_related_actions
 ---
-code: |
-  related_actions_description = comma_and_list([action.docket_number + ", " + action.case_name + ", " + action.court_county for action in related_actions])
----
 id: questions pertaining to case
 question: |
   Pertaining to your case
