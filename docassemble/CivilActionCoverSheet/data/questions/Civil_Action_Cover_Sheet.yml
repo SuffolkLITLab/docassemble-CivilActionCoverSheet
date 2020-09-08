@@ -233,7 +233,7 @@ fields:
       variable: is_representing_plaintiff
       is: True
 ---
-id: name of attorney
+id: attorney name
 question: |
   You are the attorney. Tell us your name below and we will ask for the Plaintiff's name later.
 subquestion: |
@@ -262,6 +262,23 @@ fields:
     validation messages:
       minlength: |
         You cannot continue unless you check this box.
+---
+id: attorney address
+generic object: Individual
+question: |
+  What is your address?
+fields:
+  - Street address: attorney.address.address
+    address autocomplete: True
+  - Unit: attorney.address.unit
+    required: False
+  - City: attorney.address.city
+  - State: attorney.address.state
+    default: MA   
+    code: |
+      states_list()   
+  - Zip: attorney.address.zip
+    required: False
 ---
 id: contract claims
 question: |
