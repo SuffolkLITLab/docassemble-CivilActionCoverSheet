@@ -383,14 +383,14 @@ id: related actions
 question: |
   Tell the court about any related actions pending in the Superior Court
 subquestion: |  
-  If you need to add more, click ${word("Add another")}.
+  If you need to add more, click ${word("add another")}.
 list collect: True
 fields:
+  - Docket number: related_actions[i].docket_number
+    required: False
+  - Case name: related_actions[i].case_name
+    required: False
   - Court county: related_actions[i].court_county
-    required: False
-  - Name of case: related_actions[i].case_name
-    required: False
-  - Docket number of case: related_actions[i].docket_number
     required: False
 ---
 comment: |
