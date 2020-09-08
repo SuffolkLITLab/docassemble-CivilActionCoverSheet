@@ -414,7 +414,7 @@ comment: |
         show if: has_related_actions
 ---
 code: |
-  related_actions_description = comma_and_list([action.case_name + ", " + action.docket_number + ", " + action.court_county for action in related_actions])
+  related_actions_description = comma_and_list([action.docket_number + ", " + action.case_name + ", " + action.court_county for action in related_actions])
 ---
 id: questions pertaining to case
 question: |
@@ -765,7 +765,7 @@ attachment:
       - "total_contract_claims": ${ f'{int(round(total_contract_claims)):,}' }
       - "description_of_claim": ${ description_of_claim }
       - "user_signature_date": ${ users[0].signature_date }
-      - "related_actions": ${ related_actions_description }
+      - "related_actions": ${ comma_and_list([action.docket_number + ", " + action.case_name + ", " + action.court_county for action in related_actions]) }
       - "certification_signature_date": ${ certification_signature_date }
       - "certification_signature": ${ certification_signature }
 ---
@@ -878,5 +878,5 @@ attachment:
       - "total_contract_claims": ${ f'{int(round(total_contract_claims)):,}' }
       - "description_of_claim": ${ description_of_claim }
       - "user_signature_date": ${ users[0].signature_date }
-      - "related_actions": ${ related_actions_description }
+      - "related_actions": ${ comma_and_list([action.docket_number + ", " + action.case_name + ", " + action.court_county for action in related_actions]) }
       - "certification_signature_date": ${ certification_signature_date }
