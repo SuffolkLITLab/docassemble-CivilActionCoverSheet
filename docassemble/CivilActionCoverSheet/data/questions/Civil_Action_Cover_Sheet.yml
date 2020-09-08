@@ -264,6 +264,7 @@ fields:
         You cannot continue unless you check this box.
   - 'Date of certification': certification_signature_date
     datatype: date
+    default: ${today().format("yyyy-MM-dd")}
 ---
 id: contract claims
 question: |
