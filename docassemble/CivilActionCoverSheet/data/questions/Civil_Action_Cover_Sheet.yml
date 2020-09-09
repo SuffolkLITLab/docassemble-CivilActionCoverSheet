@@ -262,6 +262,9 @@ fields:
     validation messages:
       minlength: |
         You cannot continue unless you check this box.
+# - 'Date of certification': certification_signature_date
+#   datatype: date
+#   default: ${today().format("yyyy-MM-dd")}
 ---
 id: plaintiffs name
 question:  |
@@ -478,17 +481,14 @@ fields:
   - There are other actions related to this case: has_related_actions
     datatype: yesnowide
 ---
-id: signature dates
-question: |
-  Signature dates to do
-subquestion: |
-  Placeholder text
-  Show ${ showifdef('related_actions_description') }
-fields:
-  - 'Date of user signature': users[0].signature_date
-    datatype: date
-  - 'Date of certification signature': certification_signature_date
-    datatype: date
+#id: signature dates
+#question: |
+#  Signature dates to do
+#subquestion: |
+#  Placeholder text
+#fields:
+#  - 'Date of user signature': users[0].signature_date
+#    datatype: date
 ---
 id: action and track designation
 question: |
@@ -807,10 +807,11 @@ attachment:
       - "collection_of_debt_yes": ${ collection_of_debt_yes }
       - "total_contract_claims": ${ f'{int(round(total_contract_claims)):,}' }
       - "description_of_claim": ${ description_of_claim }
-      - "user_signature_date": ${ users[0].signature_date }
+      - "user_signature_date": ${ signature_date }
+      - "user_signature": ${ users[0].signature }
       - "related_actions": ${ related_actions_description }
-      - "certification_signature_date": ${ certification_signature_date }
-      - "certification_signature": ${ certification_signature }
+      - "certification_signature_date": ${ signature_date if is_representing_plaintiff else '' }
+      - "certification_signature": ${ users[0].signature if is_representing_plaintiff else '' }
 ---
 code: |
   interview_short_title = "File a Cover Sheet for your Superior Court civil action"
@@ -843,7 +844,6 @@ code: |
   if has_related_actions:
     related_actions.gather()
   documented_medical_expenses_total
-  users[0].signature_date
   str(plaintiffs[0])
   courts[0].address.county
   str(defendants[0])
@@ -852,6 +852,7 @@ code: |
   # Comment out the line below if you don't want this behavior. 
   # mark_unfilled_fields_empty(interview_metadata["Civil_Action_Cover_Sheet0026"])
   Civil_Action_Cover_Sheet0026_preview_question # Pre-canned preview screen
+  signature_date
   signature_fields = ['certification_signature', 'users[0].signature']
   basic_questions_signature_flow
   users[0].signature
@@ -919,6 +920,6 @@ attachment:
       - "collection_of_debt_yes": ${ collection_of_debt_yes }
       - "total_contract_claims": ${ f'{int(round(total_contract_claims)):,}' }
       - "description_of_claim": ${ description_of_claim }
-      - "user_signature_date": ${ users[0].signature_date }
+      - "user_signature_date": ${ signature_date }
       - "related_actions": ${ related_actions_description }
-      - "certification_signature_date": ${ certification_signature_date }
+      - "certification_signature_date": ${ signature_date if is_representing_plaintiff else '' }
