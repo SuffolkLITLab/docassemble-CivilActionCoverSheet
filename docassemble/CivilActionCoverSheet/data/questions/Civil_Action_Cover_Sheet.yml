@@ -263,23 +263,6 @@ fields:
       minlength: |
         You cannot continue unless you check this box.
 ---
-id: plaintiffs name
-question:  |
-  % if is_representing_plaintiff:
-  What is your client's name?
-  % else:
-  What is your name?
-  % endif
-fields:
-  - First Name: users[0].name.first
-  - Middle Name: users[0].name.middle
-    required: False
-  - Last Name: users[0].name.last
-  - Suffix: users[0].name.suffix
-    code: |
-      name_suffix()
-    required: False  
----
 id: plaintiffs address
 question: |
   % if is_representing_plaintiff:
@@ -827,6 +810,7 @@ code: |
     agrees_to_certify
     attorney.name.first
     attorney.address.address
+  users[0].address.address
   defendants[0].address.address
   jury_claim_made_yes
   code_number
