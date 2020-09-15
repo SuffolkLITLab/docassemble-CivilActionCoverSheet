@@ -446,14 +446,14 @@ id: related actions
 question: |
   Tell the court about any related actions pending in the Superior Court
 subquestion: |  
-  If you need to add more, click ${word("Add another")}.
+  If you need to add more, click ${word("add another")}.
 list collect: True
 fields:
+  - Docket number: related_actions[i].docket_number
+    required: False
+  - Case name: related_actions[i].case_name
+    required: False
   - Court county: related_actions[i].court_county
-    required: False
-  - Name of case: related_actions[i].case_name
-    required: False
-  - Docket number of case: related_actions[i].docket_number
     required: False
 ---
 comment: |
@@ -475,9 +475,6 @@ comment: |
     - Docket number of case: related_actions[i].docket_number
       required: False
         show if: has_related_actions
----
-code: |
-  related_actions_description = comma_and_list([action.case_name + ", " + action.docket_number + ", " + action.court_county for action in related_actions])
 ---
 id: questions pertaining to case
 question: |
@@ -792,7 +789,6 @@ attachment:
       - "court_county": ${ courts[0].address.county }
       - "defendant": ${ str(defendants[0]) }
       - "attorney": ${ attorney }
-      - "user_signature": ${ users[0].signature }
       - "plaintiff_address": ${ plaintiffs[0].address }
       - "attorney_address": ${ attorney.address }
       - "bbo_number": ${ bbo_number }
@@ -824,9 +820,9 @@ attachment:
       - "collection_of_debt_yes": ${ collection_of_debt_yes }
       - "total_contract_claims": ${ f'{int(round(total_contract_claims)):,}' }
       - "description_of_claim": ${ description_of_claim }
-      - "user_signature_date": ${ signature_date }
+      - "user_signature_date": ${ users[0].signature_date }
       - "user_signature": ${ users[0].signature }
-      - "related_actions": ${ related_actions_description }
+      - "related_actions": ${ comma_and_list([action.docket_number + ", " + action.case_name + ", " + action.court_county for action in related_actions]) }
       - "certification_signature_date": ${ signature_date if is_representing_plaintiff else '' }
       - "certification_signature": ${ users[0].signature if is_representing_plaintiff else '' }
 ---
@@ -937,6 +933,6 @@ attachment:
       - "collection_of_debt_yes": ${ collection_of_debt_yes }
       - "total_contract_claims": ${ f'{int(round(total_contract_claims)):,}' }
       - "description_of_claim": ${ description_of_claim }
-      - "user_signature_date": ${ signature_date }
-      - "related_actions": ${ related_actions_description }
+      - "user_signature_date": ${ users[0].signature_date }
+      - "related_actions": ${ comma_and_list([action.docket_number + ", " + action.case_name + ", " + action.court_county for action in related_actions]) }
       - "certification_signature_date": ${ signature_date if is_representing_plaintiff else '' }
