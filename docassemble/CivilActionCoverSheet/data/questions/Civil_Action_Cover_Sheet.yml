@@ -228,7 +228,7 @@ question: |
 fields:
   - Are you an attorney representing a plaintiff?: is_representing_plaintiff
     datatype: yesnoradio
-  - 'Attorney BBO Number': users[0].bbo_number
+  - 'Attorney BBO Number': bbo_number
     show if:
       variable: is_representing_plaintiff
       is: True
