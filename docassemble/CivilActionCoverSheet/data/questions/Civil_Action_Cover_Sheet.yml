@@ -841,6 +841,7 @@ code: |
     agrees_to_certify
     attorney.name.first
     attorney.address.address
+  users[0].address.address
   defendants[0].address.address
   jury_claim_made_yes
   code_number
