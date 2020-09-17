@@ -333,7 +333,7 @@ subquestion: |
   Provide a brief description of the contract claims and their total dollar value. Round claim amounts to the nearest dollar. 
 fields:
   - 'Dollar value of contract claims': total_contract_claims
-    datatype: currency
+    datatype: currency(decimals=False)
     step: 1
     required: False
     help: |
@@ -372,7 +372,7 @@ subquestion: |
  Round expenses to the nearest dollar. 
 fields:
   - 'Other documented damages': documented_damages
-    datatype: currency
+    datatype: currency(decimals=False)
     step: 1
     required: False
     help: |
@@ -527,25 +527,25 @@ question: |
   What are the other damages? Round expenses to the nearest dollar. 
 fields:
   - 'Documented lost wages and compensation': documented_lost_wages
-    datatype: currency
+    datatype: currency(decimals=False)
     step: 1
     required: False
     help: |
       Insert help text that explains lost wages and compensation.
   - 'Documented property damages': documented_property_damages
-    datatype: currency
+    datatype: currency(decimals=False)
     step: 1
     required: False
     help: |
       Insert help text that describes property damages.
   - 'Anticipated future medical expenses': anticipated_future_medical_expenses
-    datatype: currency
+    datatype: currency(decimals=False)
     step: 1
     required: False
     help: |
       Provide details on how to calculate this number.
   - 'Anticipated lost wages': anticipated_lost_wages
-    datatype: currency
+    datatype: currency(decimals=False)
     step: 1
     required: False
     help: |
@@ -576,31 +576,31 @@ subquestion: |
   Enter the total amount, in dollars, of documented medical expenses incurred in connection with this claim. 
 fields:
   - 'Hospital expenses': documented_medical_expenses_hospital
-    datatype: currency
+    datatype: currency(decimals=False)
     step: 1
     required: False
     help: |
       You can include all expenses incurred with a hospital visit, like emergency room charges, supplies, overnight stays, etc. Do not include expenses that were charged by your doctor or ambulance company, chiropractor, or physical therapist (they are covered separately). Round expenses to the nearest dollar. 
   - 'Doctor expenses': documented_medical_expenses_doctor
-    datatype: currency
+    datatype: currency(decimals=False)
     step: 1
     required: False
     help: |
       You can include all costs related to doctor visits. Do not include expenses that were charged by chiropractors, physical therapists, or other providers (they are covered separately).
   - 'Chiropractic expenses': documented_medical_expenses_chiropractic
-    datatype: currency
+    datatype: currency(decimals=False)
     step: 1
     required: False
     help: |
       You can include all costs related to chiropractor visits. Do not include expenses that were charged by doctors, physical therapists, or other providers (they are covered separately).
   - 'Physical therapy expenses': documented_medical_expenses_physical_therapy
-    datatype: currency
+    datatype: currency(decimals=False)
     step: 1
     required: False
     help: |
       You can include all expenses related to physical therapy. Do not include expenses that were charged by your hospital, ambulance company, chiropractor, or doctor (they are covered separately).
   - 'Other documented medical expenses': documented_medical_expenses_other
-    datatype: currency
+    datatype: currency(decimals=False)
     step: 1
     required: False
     help: |
