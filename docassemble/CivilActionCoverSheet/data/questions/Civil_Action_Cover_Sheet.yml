@@ -843,8 +843,8 @@ code: |
     attorney.address.address
   users[0].address.address
   defendants[0].address.address
-  jury_claim_made_yes
   code_number
+  jury_claim_made_yes
   claim_under_glc_93a_yes
   class_action_yes
   collection_of_debt_yes
