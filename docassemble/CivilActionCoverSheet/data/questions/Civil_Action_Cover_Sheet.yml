@@ -655,11 +655,11 @@ fields:
   - 'Defendant address': defendants[0].address
     input type: area
 ---
-question: |
-  Sign below, ${attorney}
-under: |
-  ${attorney}
-signature: certification_signature
+#question: |
+#  Sign below, ${attorney}
+#under: |
+#  ${attorney}
+#signature: certification_signature
 ---
 question: |
   What is the Plaintiff's address?
@@ -673,7 +673,7 @@ id: download screen
 progress: 100
 mandatory: True
 question: |
-  Placeholder download screen
+  Download screen
 subquestion: |
   Placeholder
   
@@ -715,6 +715,22 @@ subquestion: |
   Don't forget to come back to this page to click to the final step of signing and sending the form to the court. 
    ${form_to_sign }
 progress: 95
+---
+id: persons signature
+question: |
+  % if is_representing_plaintiff:
+  ${ attorney }, please sign below
+  % else:
+  ${ users[0] }, please sign below
+  % endif
+signature: users[0].signature
+under: |
+  % if is_representing_plaintiff:
+  ${ attorney }
+  % else:
+  ${ users[0] }
+  % endif
+progress: 99 
 ---
 id: download form
 event: download
@@ -820,7 +836,7 @@ attachment:
       - "collection_of_debt_yes": ${ collection_of_debt_yes }
       - "total_contract_claims": ${ f'{int(round(total_contract_claims)):,}' }
       - "description_of_claim": ${ description_of_claim }
-      - "user_signature_date": ${ users[0].signature_date }
+      - "user_signature_date": ${ signature_date }
       - "user_signature": ${ users[0].signature }
       - "related_actions": ${ comma_and_list([action.docket_number + ", " + action.case_name + ", " + action.court_county for action in related_actions]) }
       - "certification_signature_date": ${ signature_date if is_representing_plaintiff else '' }
@@ -868,7 +884,7 @@ code: |
   # mark_unfilled_fields_empty(interview_metadata["Civil_Action_Cover_Sheet0026"])
   Civil_Action_Cover_Sheet0026_preview_question # Pre-canned preview screen
   signature_date
-  signature_fields = ['certification_signature', 'users[0].signature']
+  signature_fields = ['users[0].signature']
   basic_questions_signature_flow
   users[0].signature
   Civil_Action_Cover_Sheet0026 = True
