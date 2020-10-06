@@ -2,6 +2,58 @@
 include:
   - docassemble.MAVirtualCourt:basic-questions.yml
 ---
+id: interview_order_Civil_Action_Cover_Sheet0026
+code: |
+  user_role = "plaintiff"
+  users.there_is_another = False
+  basic_questions_intro_screen 
+  # Set the preferred/allowed courts for this interview
+  preferred_court = interview_metadata["Civil_Action_Cover_Sheet0026"]["preferred court"]
+  allowed_courts = interview_metadata["Civil_Action_Cover_Sheet0026"]["allowed courts"]
+  nav.set_section('is_representing_plaintiff')
+  if is_representing_plaintiff:
+    agrees_to_certify
+    nav.set_section('attorney.name.first')
+    attorney.name.first
+    nav.set_section('attorney.address.address')
+    attorney.address.address
+  nav.set_section('users[0].name.first')
+  users[0].name.first
+  nav.set_section('users[0].address.address')
+  users[0].address.address
+  nav.set_section('defendants[0].address.address')
+  defendants[0].address.address
+  nav.set_section('code_number')
+  code_number
+  jury_claim_made_yes
+  claim_under_glc_93a_yes
+  class_action_yes
+  collection_of_debt_yes
+  if has_tort_claims:
+    documented_medical_expenses_hospital
+    anticipated_future_medical_expenses
+    Does_Plaintiff_have_other_documented_damages
+    description_plaintiff_injury
+  if has_contract_claims:
+    total_contract_claims
+  if has_related_actions:
+    related_actions.gather()
+  documented_medical_expenses_total
+  str(plaintiffs[0])
+  courts[0].address.county
+  str(defendants[0])
+  # str(attorney)
+  # By default, we'll mark any un-filled fields as DAEmpty(). This helps avoid errors if you intentionally hide a logic branch or mark a question not required
+  # Comment out the line below if you don't want this behavior. 
+  # mark_unfilled_fields_empty(interview_metadata["Civil_Action_Cover_Sheet0026"])
+  Civil_Action_Cover_Sheet0026_preview_question # Pre-canned preview screen
+  signature_date
+  signature_fields = ['users[0].signature']
+  basic_questions_signature_flow
+  users[0].signature
+  Civil_Action_Cover_Sheet0026 = True
+  download
+---
 mandatory: True
 code: |
   interview_metadata # make sure we initialize the object
@@ -342,6 +394,7 @@ fields:
     required: False
     help: |
       Provide example description.
+section: total_contract_claims
 ---
 code: |
   if total_contract_claims == "":
@@ -456,26 +509,26 @@ fields:
   - Court county: related_actions[i].court_county
     required: False
 ---
-comment: |
-  id: related actions
-  question: |
-    Tell the court about any related actions pending in the Superior Court
-  subquestion: |  
-    If you need to add more, click ${word("Add another")}.
-  list collect: True
-  fields:
-    - no label: has_related_actions
-      datatype: yesnoradio
-    - Court county: related_actions[i].court_county
-      required: False
-        show if: has_related_actions
-    - Name of case: related_actions[i].case_name
-      required: False
-        show if: has_related_actions
-    - Docket number of case: related_actions[i].docket_number
-      required: False
-        show if: has_related_actions
----
+#comment: |
+#  id: related actions
+#  question: |
+#    Tell the court about any related actions pending in the Superior Court
+#  subquestion: |  
+#    If you need to add more, click ${word("Add another")}.
+#  list collect: True
+#  fields:
+#    - no label: has_related_actions
+#      datatype: yesnoradio
+#    - Court county: related_actions[i].court_county
+#      required: False
+#        show if: has_related_actions
+#    - Name of case: related_actions[i].case_name
+#      required: False
+#        show if: has_related_actions
+#    - Docket number of case: related_actions[i].docket_number
+#      required: False
+#        show if: has_related_actions
+#---
 id: questions pertaining to case
 question: |
   Pertaining to your case
@@ -550,6 +603,7 @@ fields:
     required: False
     help: |
       Provide details on how to calculate this amount.
+section: documented_lost_wages
 ---
 code: |
   if documented_lost_wages == "":
@@ -637,6 +691,17 @@ code: |
       documented_medical_expenses_other = documented_medical_expenses_other
 # we can bring this back in, I just took it out to try avoid the torts question screens being asked when the torts question wasn't selected.
 ---
+sections:
+  -  is_representing_plaintiff: Attorney or Pro Se
+  -  attorney.name.first: Attorney's Name
+  -  attorney.address.address: Attorney's Address
+  -  users[0].name.first: Plaintiff's Name
+  -  users[0].address.address: Plaintiff's Address
+  -  defendants[0].address.address: Defendant's Address
+  -  code_number: Type of Action and Track Designation
+  -  total_contract_claims: Value of Contract Claims
+  -  documented_lost_wages: Documented or Anticipated Lost Wages, Documented Property Damages, or Anticipated Future Medical Expenses
+---
 question: |
  What are your details?
 subquestion: |
@@ -687,24 +752,24 @@ subquestion: |
   ${Civil_Action_Cover_Sheet0026_attachment }
 attachment code: Civil_Action_Cover_Sheet0026_attachment
 ---
-event: review_all_sections
-question: |
-  Review of your answers
-subquestion: |
-  ${showifdef('form_to_sign')}
-  % if defined('form_delivery_complete'):
-  **Warning: your form has already been delivered.** Any changes you make
-  will _not_ be sent to the court.
-  % endif
-  Click a section to revisit the answers from that section.
-  % for section in section_links(nav):
-  * ${section}
-  % endfor
-  Press "${word("Resume")}" to resume the
-  interview.
-buttons:
-  ${word("Resume")}: continue
----
+#event: review_all_sections
+#question: |
+#  Review of your answers
+#subquestion: |
+#  ${showifdef('form_to_sign')}
+#  % if defined('form_delivery_complete'):
+#  **Warning: your form has already been delivered.** Any changes you make
+#  will _not_ be sent to the court.
+#  % endif
+#  Click a section to revisit the answers from that section.
+#  % for section in section_links(nav):
+#  * ${section}
+#  % endfor
+#  Press "${word("Resume")}" to resume the
+#  interview.
+#buttons:
+#  ${word("Resume")}: continue
+#---
 id: review before signature
 need: form_to_sign
 continue button field: preview_screen
@@ -766,6 +831,7 @@ subquestion: |
   % endif
   ${ form_to_file_no_cover }  
   
+  ${action_button_html(url_action('review_all_sections'), icon='edit', label=word("Make changes"))}
   % if not defined('email_success') or not email_success:
     ${ action_button_html( url_action('form_delivery_complete'), id_tag="submitToCourt", label="Submit to " + str(courts[0].name), icon=send_icon, size="md", color="primary")}
     
@@ -842,51 +908,6 @@ attachment:
 ---
 code: |
   interview_short_title = "File a Cover Sheet for your Superior Court civil action"
----
-id: interview_order_Civil_Action_Cover_Sheet0026
-code: |
-  user_role = "plaintiff"
-  users.there_is_another = False
-  basic_questions_intro_screen 
-  # Set the preferred/allowed courts for this interview
-  preferred_court = interview_metadata["Civil_Action_Cover_Sheet0026"]["preferred court"]
-  allowed_courts = interview_metadata["Civil_Action_Cover_Sheet0026"]["allowed courts"]
-  if is_representing_plaintiff:
-    agrees_to_certify
-    attorney.name.first
-    attorney.address.address
-  users[0].name.first
-  users[0].address.address
-  defendants[0].address.address
-  code_number
-  jury_claim_made_yes
-  claim_under_glc_93a_yes
-  class_action_yes
-  collection_of_debt_yes
-  if has_tort_claims:
-    documented_medical_expenses_hospital
-    anticipated_future_medical_expenses
-    Does_Plaintiff_have_other_documented_damages
-    description_plaintiff_injury
-  if has_contract_claims:
-    total_contract_claims
-  if has_related_actions:
-    related_actions.gather()
-  documented_medical_expenses_total
-  str(plaintiffs[0])
-  courts[0].address.county
-  str(defendants[0])
-  # str(attorney)
-  # By default, we'll mark any un-filled fields as DAEmpty(). This helps avoid errors if you intentionally hide a logic branch or mark a question not required
-  # Comment out the line below if you don't want this behavior. 
-  # mark_unfilled_fields_empty(interview_metadata["Civil_Action_Cover_Sheet0026"])
-  Civil_Action_Cover_Sheet0026_preview_question # Pre-canned preview screen
-  signature_date
-  signature_fields = ['users[0].signature']
-  basic_questions_signature_flow
-  users[0].signature
-  Civil_Action_Cover_Sheet0026 = True
-  download
 #---
 #id: preview screen
 #continue button field: Civil_Action_Cover_Sheet0026_preview_question
