@@ -326,6 +326,35 @@ fields:
   - Zip: attorney.address.zip
     required: False
 ---
+id: names of opposing party
+question: |
+  Who is the **defendant** or **respondent** in this case?
+fields:
+  - Is the defendant or respondent a person or a business?: other_parties[i].person_type
+    input type: radio
+    choices:
+      - Business or organization: business
+      - Person: individual
+  - First name: other_parties[i].name.first
+    show if:
+      variable: other_parties[i].person_type
+      is: "individual"
+  - Last name: other_parties[i].name.last
+    show if:
+      variable: other_parties[i].person_type      
+      is: "individual"
+  - Suffix: other_parties[i].name.suffix
+    code: |
+      name_suffix()
+    show if:
+      variable: other_parties[i].person_type      
+      is: "individual"
+    required: False      
+  - Name of organization or business: other_parties[i].name.first
+    show if:
+      variable: other_parties[i].person_type
+      is: business
+---
 id: contract claims
 question: |
   Contract claims
