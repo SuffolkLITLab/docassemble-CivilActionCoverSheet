@@ -328,7 +328,7 @@ fields:
 ---
 id: names of opposing party
 question: |
-  Who is the **defendant** or **respondent** in this case?
+  Who is the defendant or respondent in this case?
 fields:
   - Is the defendant or respondent a person or a business?: other_parties[i].person_type
     input type: radio
