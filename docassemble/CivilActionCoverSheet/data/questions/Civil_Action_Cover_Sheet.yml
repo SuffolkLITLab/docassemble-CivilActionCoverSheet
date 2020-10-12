@@ -235,9 +235,7 @@ fields:
 ---
 id: attorney name
 question: |
-  You are the attorney. Tell us your name below and we will ask for your client's name later.
-subquestion: |
-  Placeholder text.
+  What is your name?
 fields:
   - First name: attorney.name.first
   - Middle name: attorney.name.middle
