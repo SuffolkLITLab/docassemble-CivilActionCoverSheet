@@ -857,7 +857,7 @@ attachment:
       - "anticipated_future_medical_expenses": ${ f'{int(round(anticipated_future_medical_expenses)):,}' }
       - "anticipated_lost_wages": ${ f'{int(round(anticipated_lost_wages)):,}' }
       - "documented_damages": ${ f'{int(round(documented_damages)):,}' }
-      - "documented_items_of_damages_other": ${ f'{int(round(documented_items_of_damages_other)):,}' }
+      - "documented_items_of_damages_other": ${ documented_items_of_damages_other }
       - "total_tort_claims": ${ f'{int(round(total_tort_claims)):,}' }
       - "description_plaintiff_injury": ${ description_plaintiff_injury }
       - "collection_of_debt_yes": ${ collection_of_debt_yes }
@@ -972,7 +972,7 @@ attachment:
       - "anticipated_future_medical_expenses": ${ f'{int(round(anticipated_future_medical_expenses)):,}' }
       - "anticipated_lost_wages": ${ f'{int(round(anticipated_lost_wages)):,}' }
       - "documented_damages": ${ f'{int(round(documented_damages)):,}' }
-      - "documented_items_of_damages_other": ${ f'{int(round(documented_items_of_damages_other)):,}' }
+      - "documented_items_of_damages_other": ${ documented_items_of_damages_other }
       - "total_tort_claims": ${ f'{int(round(total_tort_claims)):,}' }
       - "description_plaintiff_injury": ${ description_plaintiff_injury }
       - "collection_of_debt_yes": ${ collection_of_debt_yes }
