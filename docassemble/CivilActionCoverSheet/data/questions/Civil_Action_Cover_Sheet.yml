@@ -2,8 +2,13 @@
 include:
   - docassemble.MAVirtualCourt:basic-questions.yml
 ---
+metadata:
+  title: |
+    Civil Action Cover Sheet
+---
 mandatory: True
 code: |
+  form_approved_for_email_filing = False
   interview_metadata # make sure we initialize the object
   if not defined("interview_metadata['Civil_Action_Cover_Sheet0026']"):
     interview_metadata.initializeObject('Civil_Action_Cover_Sheet0026')
@@ -218,6 +223,52 @@ code: |
       },
       ],
   })
+---
+mandatory: True
+id: interview_order_Civil_Action_Cover_Sheet0026
+code: |
+  user_role = "plaintiff"
+  users.there_is_another = False
+  basic_questions_intro_screen 
+  # Set the preferred/allowed courts for this interview
+  preferred_court = interview_metadata["Civil_Action_Cover_Sheet0026"]["preferred court"]
+  allowed_courts = interview_metadata["Civil_Action_Cover_Sheet0026"]["allowed courts"]
+  if is_representing_plaintiff:
+    agrees_to_certify
+    attorney.name.first
+    attorney.address.address
+  users[0].name.first
+  users[0].address.address
+  defendants[0].address.address
+  code_number
+  jury_claim_made_yes
+  claim_under_glc_93a_yes
+  class_action_yes
+  collection_of_debt_yes
+  if has_tort_claims:
+    documented_medical_expenses_hospital
+    anticipated_future_medical_expenses
+    Does_Plaintiff_have_other_documented_damages
+    description_plaintiff_injury
+  if has_contract_claims:
+    total_contract_claims
+  if has_related_actions:
+    related_actions.gather()
+  documented_medical_expenses_total
+  str(plaintiffs[0])
+  courts[0].address.county
+  str(defendants[0])
+  # str(attorney)
+  # By default, we'll mark any un-filled fields as DAEmpty(). This helps avoid errors if you intentionally hide a logic branch or mark a question not required
+  # Comment out the line below if you don't want this behavior. 
+  # mark_unfilled_fields_empty(interview_metadata["Civil_Action_Cover_Sheet0026"])
+  Civil_Action_Cover_Sheet0026_preview_question # Pre-canned preview screen
+  signature_date
+  signature_fields = ['users[0].signature']
+  basic_questions_signature_flow
+  users[0].signature
+  Civil_Action_Cover_Sheet0026 = True
+  download
 ---
 objects:
   - attorney: VCIndividual
@@ -696,24 +747,24 @@ fields:
   - 'Plaintiff address': plaintiffs[0].address
     input type: area
 ---
-id: download screen
-progress: 100
-mandatory: True
-question: |
-  Download screen
-subquestion: |
-  Placeholder
-  
-  ### Next steps
-  
-  1. Step 1
-  1. Step 2
-  
-  Below is a preview of your form.
-  
-  ${Civil_Action_Cover_Sheet0026_attachment }
-attachment code: Civil_Action_Cover_Sheet0026_attachment
----
+# id: download screen
+# progress: 100
+# mandatory: True
+# question: |
+#   Download screen
+# subquestion: |
+#   Placeholder
+#   
+#   ### Next steps
+#   
+#   1. Step 1
+#   1. Step 2
+#   
+#   Below is a preview of your form.
+#   
+#   ${Civil_Action_Cover_Sheet0026_attachment }
+# attachment code: Civil_Action_Cover_Sheet0026_attachment
+# ---
 event: review_all_sections
 question: |
   Review of your answers
@@ -759,6 +810,7 @@ under: |
   % endif
 progress: 99 
 ---
+if: form_approved_for_email_filing
 id: download form
 event: download
 comment: |
@@ -804,6 +856,28 @@ subquestion: |
 progress: 100
 attachment code: Civil_Action_Cover_Sheet0026_attachment
 section: download
+---
+if: not form_approved_for_email_filing
+id: download form do not email
+event: download
+decoration: file-download
+question: |
+  Review, download, and file form
+subquestion: |
+  Your form is ready. You still need to call the court
+  to figure out the best way to file it.
+    
+  1. Click the link below to open the form in a new window.
+  2. Download and save or print a copy of this form for your 
+  records.
+  3. Call the clerk of the ${courts[0]} at ${ courts[0].phone } or call the emergency help line
+  at 833-912-6878 to get help filing this form. The clerk may ask you
+  to email it, e-file it, or to print and mail it.
+  [:file-download: Download with cover page](${final_form_to_file.url_for()})    
+
+progress: 100
+section: download
+attachment code: Civil_Action_Cover_Sheet0026_attachment
 ---
 progress: 100
 mandatory: False
@@ -869,51 +943,7 @@ attachment:
 ---
 code: |
   interview_short_title = "File a Cover Sheet for your Superior Court civil action"
----
-id: interview_order_Civil_Action_Cover_Sheet0026
-code: |
-  user_role = "plaintiff"
-  users.there_is_another = False
-  basic_questions_intro_screen 
-  # Set the preferred/allowed courts for this interview
-  preferred_court = interview_metadata["Civil_Action_Cover_Sheet0026"]["preferred court"]
-  allowed_courts = interview_metadata["Civil_Action_Cover_Sheet0026"]["allowed courts"]
-  if is_representing_plaintiff:
-    agrees_to_certify
-    attorney.name.first
-    attorney.address.address
-  users[0].name.first
-  users[0].address.address
-  defendants[0].address.address
-  code_number
-  jury_claim_made_yes
-  claim_under_glc_93a_yes
-  class_action_yes
-  collection_of_debt_yes
-  if has_tort_claims:
-    documented_medical_expenses_hospital
-    anticipated_future_medical_expenses
-    Does_Plaintiff_have_other_documented_damages
-    description_plaintiff_injury
-  if has_contract_claims:
-    total_contract_claims
-  if has_related_actions:
-    related_actions.gather()
-  documented_medical_expenses_total
-  str(plaintiffs[0])
-  courts[0].address.county
-  str(defendants[0])
-  # str(attorney)
-  # By default, we'll mark any un-filled fields as DAEmpty(). This helps avoid errors if you intentionally hide a logic branch or mark a question not required
-  # Comment out the line below if you don't want this behavior. 
-  # mark_unfilled_fields_empty(interview_metadata["Civil_Action_Cover_Sheet0026"])
-  Civil_Action_Cover_Sheet0026_preview_question # Pre-canned preview screen
-  signature_date
-  signature_fields = ['users[0].signature']
-  basic_questions_signature_flow
-  users[0].signature
-  Civil_Action_Cover_Sheet0026 = True
-  download
+
 #---
 #id: preview screen
 #continue button field: Civil_Action_Cover_Sheet0026_preview_question
@@ -924,7 +954,7 @@ code: |
 #  
 #   ${Civil_Action_Cover_Sheet0026_attachment_preview}
 ---
-mandatory: True
+# mandatory: True
 id: preview screen 1
 continue button field: Civil_Action_Cover_Sheet0026_preview_question
 question: |
