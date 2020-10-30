@@ -3,8 +3,7 @@ include:
   - docassemble.MAVirtualCourt:basic-questions.yml
 ---
 metadata:
-  title: |
-    Civil Action Cover Sheet
+  title: Civil Action Cover Sheet
 ---
 mandatory: True
 code: |
