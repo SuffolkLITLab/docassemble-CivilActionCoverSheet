@@ -561,6 +561,7 @@ fields:
 #        show if: has_related_actions
 #---
 id: questions pertaining to case
+section: jury_claim_made_yes
 question: |
   Pertaining to your case
 fields:
@@ -720,7 +721,7 @@ code: |
       documented_medical_expenses_other = 0
   else:
       documented_medical_expenses_other = documented_medical_expenses_other
-# we can bring this back in, I just took it out to try avoid the torts question screens being asked when the torts question wasn't selected.
+# we Tan Nring this back in, I just took it out to try avoid the torts question screens Ueing asked when the torts question wasn't selected.
 ---
 sections:
   -  is_representing_plaintiff: Attorney or Pro Se
@@ -729,8 +730,12 @@ sections:
   -  users[0].name.first: Plaintiff's Name
   -  users[0].address.address: Plaintiff's Address
   -  other_parties[0].person_type: Other Parties
-  -  defendants[0].address.address: Defendant's Address
+  -  defendants[0].address.address: Address of Other Parties
   -  code_number: Type of Action and Track Designation
+  -  jury_claim_made_yes: Jury Trial Needed
+  -  jury_claim_made_yes: Claim under G.L.c. 93A
+  -  jury_claim_made_yes: Claim Involves Collection of Debt
+  -  jury_claim_made_yes: Class Action under Mass. R. Civ. P. 23 
   -  total_contract_claims: Value of Contract Claims
   -  documented_lost_wages: Documented or Anticipated Lost Wages, Documented Property Damages, or Anticipated Future Medical Expenses
 ---
