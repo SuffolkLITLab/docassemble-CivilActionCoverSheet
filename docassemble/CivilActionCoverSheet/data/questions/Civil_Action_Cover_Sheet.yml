@@ -21,6 +21,8 @@ code: |
   users[0].name.first
   nav.set_section('users[0].address.address')
   users[0].address.address
+  nav.set_section('other_parties[0].person_type')
+  other_parties[0].person_type
   nav.set_section('defendants[0].address.address')
   defendants[0].address.address
   nav.set_section('code_number')
@@ -726,6 +728,7 @@ sections:
   -  attorney.address.address: Attorney's Address
   -  users[0].name.first: Plaintiff's Name
   -  users[0].address.address: Plaintiff's Address
+  -  other_parties[0].person_type: Other Parties
   -  defendants[0].address.address: Defendant's Address
   -  code_number: Type of Action and Track Designation
   -  total_contract_claims: Value of Contract Claims
