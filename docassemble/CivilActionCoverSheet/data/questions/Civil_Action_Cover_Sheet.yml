@@ -231,7 +231,6 @@ code: |
   # Set the preferred/allowed courts for this interview
   preferred_court = interview_metadata["Civil_Action_Cover_Sheet0026"]["preferred court"]
   allowed_courts = interview_metadata["Civil_Action_Cover_Sheet0026"]["allowed courts"]
-  nav.set_section('is_representing_plaintiff')
   if is_representing_plaintiff:
     agrees_to_certify
     attorney.name.first
@@ -239,7 +238,6 @@ code: |
   users[0].name.first
   users[0].address.address
   defendants[0].address.address
-  nav.set_section('code_number')
   code_number
   jury_claim_made_yes
   claim_under_glc_93a_yes
