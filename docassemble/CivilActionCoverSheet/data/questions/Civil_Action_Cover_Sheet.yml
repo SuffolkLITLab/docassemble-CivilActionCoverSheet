@@ -807,16 +807,19 @@ attachment code: Civil_Action_Cover_Sheet0026_attachment
 #buttons:
 #  ${word("Resume")}: continue
 #---
-id: review before signature
-need: form_to_sign
-continue button field: preview_screen
-question: |
-  Nearly finished
-subquestion: |
-  You are almost done! Please click on the form below. It will open in a new window so you can review it and make sure it is correct.
-  Don't forget to come back to this page to click to the final step of signing and sending the form to the court. 
-   ${form_to_sign }
-progress: 95
+# id: review before signature
+# need: form_to_sign
+# continue button field: preview_screen
+# question: |
+#   Nearly finished
+# subquestion: |
+#   You are almost done! Please click on the form below. It will open in a new window so you can review it and make sure it is correct.
+#   Return to this page to make edits to the form by clicking the "Make changes" button below
+#   Don't forget to come back to this page to click to the final step of signing and sending the form to the court. 
+#    ${form_to_sign }
+#    ${action_button_html(url_action('review_all_sections'), icon='edit', label=word("Make changes"))}
+# 
+# progress: 95
 ---
 id: persons signature
 question: |
@@ -868,7 +871,6 @@ subquestion: |
   % endif
   ${ form_to_file_no_cover }  
   
-  ${action_button_html(url_action('review_all_sections'), icon='edit', label=word("Make changes"))}
   % if not defined('email_success') or not email_success:
     ${ action_button_html( url_action('form_delivery_complete'), id_tag="submitToCourt", label="Submit to " + str(courts[0].name), icon=send_icon, size="md", color="primary")}
     
@@ -961,9 +963,17 @@ continue button field: Civil_Action_Cover_Sheet0026_preview_question
 question: |
   Preview screen
 subquestion: |
-  Here is a preview of the form you'll sign on the next page. 
+  Here is a preview of the form you'll sign on the next page. If you'd like to revise your answers or make other edits, click the "Make changes" button. 
   
+  Edits will appear on the final version of the form, produced after you have signed.
+  
+   ${action_button_html(url_action('review_all_sections'), icon='edit', label=word("Make changes"))}
+
    ${Civil_Action_Cover_Sheet0026_attachment_preview}
+---
+code: |
+  del Civil_Action_Cover_Sheet0026_attachment_preview
+  first_draft_deleted = True
 ---
 attachment:
     variable name: Civil_Action_Cover_Sheet0026_attachment_preview
