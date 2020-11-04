@@ -1,16 +1,8 @@
-# docassemble.MAVirtualCourt
+# docassemble.CivilActionCoverSheet
 
 
 
 ## Author
 
-Quinten Steenhuis
-Caroline Robinson
-Kate Barry
-Plocket
-Lily Yang
-Matthew Brooks
-Lance Godard
+Lance Godard<p>
 Maeve MacGlinchey
-Kendall Garner
-David Colarusso

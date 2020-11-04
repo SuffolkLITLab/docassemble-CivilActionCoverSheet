@@ -7,6 +7,7 @@ metadata:
 ---
 mandatory: True
 code: |
+  form_approved_for_email_filing = False
   interview_metadata # make sure we initialize the object
   if not defined("interview_metadata['Civil_Action_Cover_Sheet0026']"):
     interview_metadata.initializeObject('Civil_Action_Cover_Sheet0026')
@@ -284,9 +285,7 @@ fields:
 ---
 id: attorney name
 question: |
-  You are the attorney. Tell us your name below and we will ask for your client's name later.
-subquestion: |
-  Placeholder text.
+  What is your name?
 fields:
   - First name: attorney.name.first
   - Middle name: attorney.name.middle
@@ -832,6 +831,7 @@ under: |
   % endif
 progress: 99 
 ---
+if: form_approved_for_email_filing
 id: download form
 event: download
 comment: |
@@ -877,6 +877,28 @@ subquestion: |
 progress: 100
 attachment code: Civil_Action_Cover_Sheet0026_attachment
 section: download
+---
+if: not form_approved_for_email_filing
+id: download form do not email
+event: download
+decoration: file-download
+question: |
+  Review, download, and file form
+subquestion: |
+  Your form is ready. You still need to call the court
+  to figure out the best way to file it.
+    
+  1. Click the link below to open the form in a new window.
+  2. Download and save or print a copy of this form for your 
+  records.
+  3. Call the clerk of the ${courts[0]} at ${ courts[0].phone } or call the emergency help line
+  at 833-912-6878 to get help filing this form. The clerk may ask you
+  to email it, e-file it, or to print and mail it.
+  [:file-download: Download with cover page](${final_form_to_file.url_for()})    
+
+progress: 100
+section: download
+attachment code: Civil_Action_Cover_Sheet0026_attachment
 ---
 progress: 100
 mandatory: False
@@ -928,7 +950,7 @@ attachment:
       - "anticipated_future_medical_expenses": ${ f'{int(round(anticipated_future_medical_expenses)):,}' }
       - "anticipated_lost_wages": ${ f'{int(round(anticipated_lost_wages)):,}' }
       - "documented_damages": ${ f'{int(round(documented_damages)):,}' }
-      - "documented_items_of_damages_other": ${ f'{int(round(documented_items_of_damages_other)):,}' }
+      - "documented_items_of_damages_other": ${ documented_items_of_damages_other }
       - "total_tort_claims": ${ f'{int(round(total_tort_claims)):,}' }
       - "description_plaintiff_injury": ${ description_plaintiff_injury }
       - "collection_of_debt_yes": ${ collection_of_debt_yes }
@@ -953,7 +975,7 @@ code: |
 #  
 #   ${Civil_Action_Cover_Sheet0026_attachment_preview}
 ---
-mandatory: True
+# mandatory: True
 id: preview screen 1
 continue button field: Civil_Action_Cover_Sheet0026_preview_question
 question: |
@@ -1007,7 +1029,7 @@ attachment:
       - "anticipated_future_medical_expenses": ${ f'{int(round(anticipated_future_medical_expenses)):,}' }
       - "anticipated_lost_wages": ${ f'{int(round(anticipated_lost_wages)):,}' }
       - "documented_damages": ${ f'{int(round(documented_damages)):,}' }
-      - "documented_items_of_damages_other": ${ f'{int(round(documented_items_of_damages_other)):,}' }
+      - "documented_items_of_damages_other": ${ documented_items_of_damages_other }
       - "total_tort_claims": ${ f'{int(round(total_tort_claims)):,}' }
       - "description_plaintiff_injury": ${ description_plaintiff_injury }
       - "collection_of_debt_yes": ${ collection_of_debt_yes }
