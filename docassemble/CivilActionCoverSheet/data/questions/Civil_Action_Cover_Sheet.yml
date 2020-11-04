@@ -222,8 +222,8 @@ code: |
       ],
   })
 ---
+mandatory: True
 id: interview_order_Civil_Action_Cover_Sheet0026
-# code to remove after cutting new branch
 code: |
   user_role = "plaintiff"
   users.there_is_another = False
@@ -234,17 +234,10 @@ code: |
   nav.set_section('is_representing_plaintiff')
   if is_representing_plaintiff:
     agrees_to_certify
-    nav.set_section('attorney.name.first')
     attorney.name.first
-    nav.set_section('attorney.address.address')
     attorney.address.address
-  nav.set_section('users[0].name.first')
   users[0].name.first
-  nav.set_section('users[0].address.address')
   users[0].address.address
-  nav.set_section('other_parties[0].person_type')
-  other_parties[0].person_type
-  nav.set_section('defendants[0].address.address')
   defendants[0].address.address
   nav.set_section('code_number')
   code_number
