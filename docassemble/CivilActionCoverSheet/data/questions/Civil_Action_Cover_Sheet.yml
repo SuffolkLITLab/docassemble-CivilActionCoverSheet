@@ -2,60 +2,8 @@
 include:
   - docassemble.MAVirtualCourt:basic-questions.yml
 ---
-id: interview_order_Civil_Action_Cover_Sheet0026
-# code to remove after cutting new branch
-code: |
-  user_role = "plaintiff"
-  users.there_is_another = False
-  basic_questions_intro_screen 
-  # Set the preferred/allowed courts for this interview
-  preferred_court = interview_metadata["Civil_Action_Cover_Sheet0026"]["preferred court"]
-  allowed_courts = interview_metadata["Civil_Action_Cover_Sheet0026"]["allowed courts"]
-  nav.set_section('is_representing_plaintiff')
-  if is_representing_plaintiff:
-    agrees_to_certify
-    nav.set_section('attorney.name.first')
-    attorney.name.first
-    nav.set_section('attorney.address.address')
-    attorney.address.address
-  nav.set_section('users[0].name.first')
-  users[0].name.first
-  nav.set_section('users[0].address.address')
-  users[0].address.address
-  nav.set_section('other_parties[0].person_type')
-  other_parties[0].person_type
-  nav.set_section('defendants[0].address.address')
-  defendants[0].address.address
-  nav.set_section('code_number')
-  code_number
-  jury_claim_made_yes
-  claim_under_glc_93a_yes
-  class_action_yes
-  collection_of_debt_yes
-  if has_tort_claims:
-    documented_medical_expenses_hospital
-    anticipated_future_medical_expenses
-    Does_Plaintiff_have_other_documented_damages
-    description_plaintiff_injury
-  if has_contract_claims:
-    total_contract_claims
-  if has_related_actions:
-    related_actions.gather()
-  documented_medical_expenses_total
-  str(plaintiffs[0])
-  courts[0].address.county
-  str(defendants[0])
-  # str(attorney)
-  # By default, we'll mark any un-filled fields as DAEmpty(). This helps avoid errors if you intentionally hide a logic branch or mark a question not required
-  # Comment out the line below if you don't want this behavior. 
-  # mark_unfilled_fields_empty(interview_metadata["Civil_Action_Cover_Sheet0026"])
-  Civil_Action_Cover_Sheet0026_preview_question # Pre-canned preview screen
-  signature_date
-  signature_fields = ['users[0].signature']
-  basic_questions_signature_flow
-  users[0].signature
-  Civil_Action_Cover_Sheet0026 = True
-  download
+metadata:
+  title: Civil Action Cover Sheet
 ---
 mandatory: True
 code: |
@@ -273,6 +221,61 @@ code: |
       },
       ],
   })
+---
+id: interview_order_Civil_Action_Cover_Sheet0026
+# code to remove after cutting new branch
+code: |
+  user_role = "plaintiff"
+  users.there_is_another = False
+  basic_questions_intro_screen 
+  # Set the preferred/allowed courts for this interview
+  preferred_court = interview_metadata["Civil_Action_Cover_Sheet0026"]["preferred court"]
+  allowed_courts = interview_metadata["Civil_Action_Cover_Sheet0026"]["allowed courts"]
+  nav.set_section('is_representing_plaintiff')
+  if is_representing_plaintiff:
+    agrees_to_certify
+    nav.set_section('attorney.name.first')
+    attorney.name.first
+    nav.set_section('attorney.address.address')
+    attorney.address.address
+  nav.set_section('users[0].name.first')
+  users[0].name.first
+  nav.set_section('users[0].address.address')
+  users[0].address.address
+  nav.set_section('other_parties[0].person_type')
+  other_parties[0].person_type
+  nav.set_section('defendants[0].address.address')
+  defendants[0].address.address
+  nav.set_section('code_number')
+  code_number
+  jury_claim_made_yes
+  claim_under_glc_93a_yes
+  class_action_yes
+  collection_of_debt_yes
+  if has_tort_claims:
+    documented_medical_expenses_hospital
+    anticipated_future_medical_expenses
+    Does_Plaintiff_have_other_documented_damages
+    description_plaintiff_injury
+  if has_contract_claims:
+    total_contract_claims
+  if has_related_actions:
+    related_actions.gather()
+  documented_medical_expenses_total
+  str(plaintiffs[0])
+  courts[0].address.county
+  str(defendants[0])
+  # str(attorney)
+  # By default, we'll mark any un-filled fields as DAEmpty(). This helps avoid errors if you intentionally hide a logic branch or mark a question not required
+  # Comment out the line below if you don't want this behavior. 
+  # mark_unfilled_fields_empty(interview_metadata["Civil_Action_Cover_Sheet0026"])
+  Civil_Action_Cover_Sheet0026_preview_question # Pre-canned preview screen
+  signature_date
+  signature_fields = ['users[0].signature']
+  basic_questions_signature_flow
+  users[0].signature
+  Civil_Action_Cover_Sheet0026 = True
+  download
 ---
 objects:
   - attorney: VCIndividual
@@ -772,55 +775,55 @@ fields:
   - 'Plaintiff address': plaintiffs[0].address
     input type: area
 ---
-id: download screen
-progress: 100
-mandatory: True
-question: |
-  Download screen
-subquestion: |
-  Placeholder
-  
-  ### Next steps
-  
-  1. Step 1
-  1. Step 2
-  
-  Below is a preview of your form.
-  
-  ${Civil_Action_Cover_Sheet0026_attachment }
-attachment code: Civil_Action_Cover_Sheet0026_attachment
----
-#event: review_all_sections
-#question: |
-#  Review of your answers
-#subquestion: |
-#  ${showifdef('form_to_sign')}
-#  % if defined('form_delivery_complete'):
-#  **Warning: your form has already been delivered.** Any changes you make
-#  will _not_ be sent to the court.
-#  % endif
-#  Click a section to revisit the answers from that section.
-#  % for section in section_links(nav):
-#  * ${section}
-#  % endfor
-#  Press "${word("Resume")}" to resume the
-#  interview.
-#buttons:
-#  ${word("Resume")}: continue
-#---
-# id: review before signature
-# need: form_to_sign
-# continue button field: preview_screen
+# id: download screen
+# progress: 100
+# mandatory: True
 # question: |
-#   Nearly finished
+#   Download screen
 # subquestion: |
-#   You are almost done! Please click on the form below. It will open in a new window so you can review it and make sure it is correct.
-#   Return to this page to make edits to the form by clicking the "Make changes" button below
-#   Don't forget to come back to this page to click to the final step of signing and sending the form to the court. 
-#    ${form_to_sign }
-#    ${action_button_html(url_action('review_all_sections'), icon='edit', label=word("Make changes"))}
-# 
-# progress: 95
+#   Placeholder
+#   
+#   ### Next steps
+#   
+#   1. Step 1
+#   1. Step 2
+#   
+#   Below is a preview of your form.
+#   
+#   ${Civil_Action_Cover_Sheet0026_attachment }
+# attachment code: Civil_Action_Cover_Sheet0026_attachment
+# ---
+event: review_all_sections
+question: |
+  Review of your answers
+subquestion: |
+  ${showifdef('form_to_sign')}
+  % if defined('form_delivery_complete'):
+  **Warning: your form has already been delivered.** Any changes you make
+  will _not_ be sent to the court.
+  % endif
+  Click a section to revisit the answers from that section.
+  % for section in section_links(nav):
+  * ${section}
+  % endfor
+  Press "${word("Resume")}" to resume the
+  interview.
+buttons:
+  ${word("Resume")}: continue
+---
+ id: review before signature
+ need: form_to_sign
+ continue button field: preview_screen
+ question: |
+   Nearly finished
+ subquestion: |
+   You are almost done! Please click on the form below. It will open in a new window so you can review it and make sure it is correct.
+   Return to this page to make edits to the form by clicking the "Make changes" button below
+   Don't forget to come back to this page to click to the final step of signing and sending the form to the court. 
+    ${form_to_sign }
+    ${action_button_html(url_action('review_all_sections'), icon='edit', label=word("Make changes"))}
+ 
+ progress: 95
 ---
 id: persons signature
 question: |
@@ -948,6 +951,7 @@ attachment:
 ---
 code: |
   interview_short_title = "File a Cover Sheet for your Superior Court civil action"
+
 #---
 #id: preview screen
 #continue button field: Civil_Action_Cover_Sheet0026_preview_question
