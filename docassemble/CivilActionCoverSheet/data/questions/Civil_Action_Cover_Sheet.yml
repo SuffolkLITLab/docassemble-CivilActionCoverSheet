@@ -806,10 +806,22 @@ subquestion: |
   % endif
  
    Click a section to revisit the answers from that section.
-  
-  % for section in section_links(nav):
-    * ${section}
-  % endfor
+   
+    *  [Attorney or Pro Se](${url_action("is_representing_plaintiff")}) 
+    *  [Attorney Name](${url_action("attorney.name.first")})
+    *  [Attorney Address](${url_action("attorney.address.address")})  
+    *  [Plaintiff Name](${url_action("users[0].name.first")})
+    *  [Plaintiff Address](${url_action("users[0].address.address")})
+    *  [Other Parties Type and Name](${url_action("other_parties[0].person_type")})
+    *  [Other Parties Address](${url_action("defendants[0].address.address")})
+    *  [Type of Action and Track Designation](${url_action("code_number")})
+    *  [Case Details](${url_action("jury_claim_made_yes")})
+      *  Is a jury trial needed?
+      *  Is this a claim under G.L.c. 93A?
+      *  Does this claim involve a collection of debt?
+      *  Is this a class action under Mass. R. Civ. P. 23? 
+    *  [Value of Contract Claims](${url_action("total_contract_claims")})
+    *  [Documented or Anticipated Lost Wages, Documented Property Damages, or Anticipated Future Medical Expenses](${url_action("documented_lost_wages")})
   
   Press "${word("Resume")}" to resume the
   interview.
