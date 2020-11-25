@@ -570,9 +570,9 @@ question: |
 fields:
   - I need a jury trial: jury_claim_made_yes
     datatype: yesnowide
-  - This is a claim under G.L. c. 93A: claim_under_glc_93a_yes
+  - This is a claim under [G.L. c. 93A](https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXV/Chapter93A): claim_under_glc_93a_yes
     datatype: yesnowide
-  - This is an action under Mass. R. Civ. P. 23: class_action_yes
+  - This is an action under [Mass. R. Civ. P. 23](https://www.mass.gov/rules-of-civil-procedure/civil-procedure-rule-23-class-actions): class_action_yes
     datatype: yesnowide
   - This is a tort claim: has_tort_claims
     datatype: yesnowide
@@ -808,8 +808,10 @@ subquestion: |
    Click a section to revisit the answers from that section.
    
     *  [Attorney or Pro Se](${url_action("is_representing_plaintiff")}) 
-    *  [Attorney Name](${url_action("attorney.name.first")})
-    *  [Attorney Address](${url_action("attorney.address.address")})  
+    % if is_representing_plaintiff is True:
+      *  [Attorney Name](${url_action("attorney.name.first")})
+      *  [Attorney Address](${url_action("attorney.address.address")})
+      % endif
     *  [Plaintiff Name](${url_action("users[0].name.first")})
     *  [Plaintiff Address](${url_action("users[0].address.address")})
     *  [Other Parties Type and Name](${url_action("other_parties[0].person_type")})
@@ -817,11 +819,11 @@ subquestion: |
     *  [Type of Action and Track Designation](${url_action("code_number")})
     *  [Case Details](${url_action("jury_claim_made_yes")})
       *  Is a jury trial needed?
-      *  Is this a claim under G.L.c. 93A?
+      *  Is this a claim under [G.L.c. 93A](https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXV/Chapter93A)?
       *  Does this claim involve a collection of debt?
-      *  Is this a class action under Mass. R. Civ. P. 23? 
+      *  Is this a class action under [Mass. R. Civ. P. 23](https://www.mass.gov/rules-of-civil-procedure/civil-procedure-rule-23-class-actions)? 
     *  [Value of Contract Claims](${url_action("total_contract_claims")})
-    *  [Documented or Anticipated Lost Wages, Documented Property Damages, or Anticipated Future Medical Expenses](${url_action("documented_lost_wages")})
+    *  [Value of Documented or Anticipated Lost Wages, Documented Property Damages, or Anticipated Future Medical Expenses](${url_action("documented_lost_wages")})
   
   Press "${word("Resume")}" to resume the
   interview.
