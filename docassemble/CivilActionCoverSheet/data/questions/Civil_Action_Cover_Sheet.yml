@@ -232,13 +232,22 @@ code: |
   # Set the preferred/allowed courts for this interview
   preferred_court = interview_metadata["Civil_Action_Cover_Sheet0026"]["preferred court"]
   allowed_courts = interview_metadata["Civil_Action_Cover_Sheet0026"]["allowed courts"]
+  nav.set_section('is_representing_plaintiff')
   if is_representing_plaintiff:
     agrees_to_certify
+    nav.set_section('attorney.name.first')
     attorney.name.first
+    nav.set_section('attorney.address.address')
     attorney.address.address
+  nav.set_section('users[0].name.first')
   users[0].name.first
+  nav.set_section('users[0].address.address')
   users[0].address.address
+  nav.set_section('other_parties[0].person_type')
+  other_parties[0].person_type
+  nav.set_section('defendants[0].address.address')
   defendants[0].address.address
+  nav.set_section('code_number')
   code_number
   jury_claim_made_yes
   claim_under_glc_93a_yes
@@ -419,6 +428,7 @@ fields:
     required: False
     help: |
       Provide example description.
+section: total_contract_claims
 ---
 code: |
   if total_contract_claims == "":
@@ -533,35 +543,36 @@ fields:
   - Court county: related_actions[i].court_county
     required: False
 ---
-comment: |
-  id: related actions
-  question: |
-    Tell the court about any related actions pending in the Superior Court
-  subquestion: |  
-    If you need to add more, click ${word("Add another")}.
-  list collect: True
-  fields:
-    - no label: has_related_actions
-      datatype: yesnoradio
-    - Court county: related_actions[i].court_county
-      required: False
-        show if: has_related_actions
-    - Name of case: related_actions[i].case_name
-      required: False
-        show if: has_related_actions
-    - Docket number of case: related_actions[i].docket_number
-      required: False
-        show if: has_related_actions
----
+#comment: |
+#  id: related actions
+#  question: |
+#    Tell the court about any related actions pending in the Superior Court
+#  subquestion: |  
+#    If you need to add more, click ${word("Add another")}.
+#  list collect: True
+#  fields:
+#    - no label: has_related_actions
+#      datatype: yesnoradio
+#    - Court county: related_actions[i].court_county
+#      required: False
+#        show if: has_related_actions
+#    - Name of case: related_actions[i].case_name
+#      required: False
+#        show if: has_related_actions
+#    - Docket number of case: related_actions[i].docket_number
+#      required: False
+#        show if: has_related_actions
+#---
 id: questions pertaining to case
+section: jury_claim_made_yes
 question: |
   Pertaining to your case
 fields:
   - I need a jury trial: jury_claim_made_yes
     datatype: yesnowide
-  - This is a claim under G.L. c. 93A: claim_under_glc_93a_yes
+  - This is a claim under [G.L. c. 93A](https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXV/Chapter93A): claim_under_glc_93a_yes
     datatype: yesnowide
-  - This is an action under Mass. R. Civ. P. 23: class_action_yes
+  - This is an action under [Mass. R. Civ. P. 23](https://www.mass.gov/rules-of-civil-procedure/civil-procedure-rule-23-class-actions): class_action_yes
     datatype: yesnowide
   - This is a tort claim: has_tort_claims
     datatype: yesnowide
@@ -627,6 +638,7 @@ fields:
     required: False
     help: |
       Provide details on how to calculate this amount.
+section: documented_lost_wages
 ---
 code: |
   if documented_lost_wages == "":
@@ -712,7 +724,23 @@ code: |
       documented_medical_expenses_other = 0
   else:
       documented_medical_expenses_other = documented_medical_expenses_other
-# we can bring this back in, I just took it out to try avoid the torts question screens being asked when the torts question wasn't selected.
+# we Tan Nring this back in, I just took it out to try avoid the torts question screens Ueing asked when the torts question wasn't selected.
+---
+sections:
+  -  is_representing_plaintiff: Attorney or Pro Se Plaintiff
+  -  attorney.name.first: Attorney Name
+  -  attorney.address.address: Attorney Address
+  -  users[0].name.first: Plaintiff Name
+  -  users[0].address.address: Plaintiff Address
+  -  other_parties[0].person_type: Other Parties Type and Name
+  -  defendants[0].address.address: Other Parties Address
+  -  code_number: Type of Action and Track Designation
+  -  jury_claim_made_yes: Jury Trial Needed?
+  -  jury_claim_made_yes: Claim under G.L.c. 93A?
+  -  jury_claim_made_yes: Claim Involves Collection of Debt?
+  -  jury_claim_made_yes: Class Action under Mass. R. Civ. P. 23? 
+  -  total_contract_claims: Value of Contract Claims
+  -  documented_lost_wages: Documented or Anticipated Lost Wages, Documented Property Damages, or Anticipated Future Medical Expenses
 ---
 question: |
  What are your details?
@@ -764,35 +792,62 @@ fields:
 #   ${Civil_Action_Cover_Sheet0026_attachment }
 # attachment code: Civil_Action_Cover_Sheet0026_attachment
 # ---
+id: review all sections
 event: review_all_sections
 question: |
   Review of your answers
 subquestion: |
   ${showifdef('form_to_sign')}
+  
   % if defined('form_delivery_complete'):
   **Warning: your form has already been delivered.** Any changes you make
   will _not_ be sent to the court.
+  
   % endif
-  Click a section to revisit the answers from that section.
-  % for section in section_links(nav):
-  * ${section}
-  % endfor
+ 
+   Click a section to revisit the answers from that section.
+   
+    *  [Attorney or Pro Se](${url_action("is_representing_plaintiff")}) 
+    % if is_representing_plaintiff is True:
+      *  [Attorney Name](${url_action("attorney.name.first")})
+      *  [Attorney Address](${url_action("attorney.address.address")})
+      % endif
+    *  [Plaintiff Name](${url_action("users[0].name.first")})
+    *  [Plaintiff Address](${url_action("users[0].address.address")})
+    *  [Other Parties Type and Name](${url_action("other_parties[0].person_type")})
+    *  [Other Parties Address](${url_action("defendants[0].address.address")})
+    *  [Type of Action and Track Designation](${url_action("code_number")})
+    *  [Case Details](${url_action("jury_claim_made_yes")})
+      *  Is a jury trial needed?
+      *  Is this a claim under [G.L.c. 93A](https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXV/Chapter93A)?
+      *  Does this claim involve a collection of debt?
+      *  Is this a class action under [Mass. R. Civ. P. 23](https://www.mass.gov/rules-of-civil-procedure/civil-procedure-rule-23-class-actions)? 
+    *  [Value of Contract Claims](${url_action("total_contract_claims")})
+    *  [Value of Documented or Anticipated Lost Wages, Documented Property Damages, or Anticipated Future Medical Expenses](${url_action("documented_lost_wages")})
+  
   Press "${word("Resume")}" to resume the
   interview.
 buttons:
   ${word("Resume")}: continue
 ---
-id: review before signature
-need: form_to_sign
-continue button field: preview_screen
-question: |
-  Nearly finished
-subquestion: |
-  You are almost done! Please click on the form below. It will open in a new window so you can review it and make sure it is correct.
-  Don't forget to come back to this page to click to the final step of signing and sending the form to the court. 
-   ${form_to_sign }
-progress: 95
+code: |
+  del Civil_Action_Cover_Sheet0026_attachment_preview
+  first_draft_deleted = True
 ---
+#  id: review before signature
+#  need: form_to_sign
+#  continue button field: preview_screen
+#  question: |
+#    Nearly finished
+#  subquestion: |
+#    You are almost done! Please click on the form below. It will open in a new window so you can review it and make sure it is correct.
+#    Return to this page to make edits to the form by clicking the "Make changes" button below
+#    Don't forget to come back to this page to click to the final step of signing and sending the form to the court. 
+#     ${form_to_sign }
+#     ${action_button_html(url_action('review_all_sections'), icon='edit', label=word("Make changes"))}
+#  
+#  progress: 95
+# ---
 id: persons signature
 question: |
   % if is_representing_plaintiff:
@@ -852,6 +907,8 @@ subquestion: |
     Your email has already been delivered to ${courts[0]}
   [:file-download: Download with cover page](${final_form_to_file.url_for()})    
   % endif
+  ${Civil_Action_Cover_Sheet0026_attachment }
+
 progress: 100
 attachment code: Civil_Action_Cover_Sheet0026_attachment
 section: download
@@ -864,9 +921,9 @@ question: |
   Review, download, and file form
 subquestion: |
   Your form is ready. You still need to call the court
-  to figure out the best way to file it.
+  to figure out the best way to file it. 
     
-  1. Click the link below to open the form in a new window.
+  1. Click the "PDF" link below to open the form in a new window.
   2. Download and save or print a copy of this form for your 
   records.
   3. Call the clerk of the ${courts[0]} at ${ courts[0].phone } or call the emergency help line
@@ -959,10 +1016,19 @@ continue button field: Civil_Action_Cover_Sheet0026_preview_question
 question: |
   Preview screen
 subquestion: |
-  Here is a preview of the form you'll sign on the next page. 
+  Here is a preview of the form you'll sign on the next page. If you'd like to revise your answers or make other edits, click the "Make changes" button. 
   
+  Edits will appear on the final version of the form, produced after you have signed.
+  
+   ${action_button_html(url_action('review_all_sections'), icon='edit', label=word("Make changes"))}
+
    ${Civil_Action_Cover_Sheet0026_attachment_preview}
 ---
+code: |
+  del Civil_Action_Cover_Sheet0026_attachment_preview
+  first_draft_deleted = True
+---
+reconsider: True
 attachment:
     variable name: Civil_Action_Cover_Sheet0026_attachment_preview
     name: Civil Action Cover Sheet
