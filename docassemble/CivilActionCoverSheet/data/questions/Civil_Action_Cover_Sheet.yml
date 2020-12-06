@@ -533,7 +533,7 @@ id: related actions
 question: |
   Tell the court about any related actions pending in the Superior Court
 subquestion: |  
-  If you need to add more, click ${word("add another")}.
+  If you need to add more, tap ${word("add another")}.
 list collect: True
 fields:
   - Docket number: related_actions[i].docket_number
@@ -543,26 +543,6 @@ fields:
   - Court county: related_actions[i].court_county
     required: False
 ---
-#comment: |
-#  id: related actions
-#  question: |
-#    Tell the court about any related actions pending in the Superior Court
-#  subquestion: |  
-#    If you need to add more, click ${word("Add another")}.
-#  list collect: True
-#  fields:
-#    - no label: has_related_actions
-#      datatype: yesnoradio
-#    - Court county: related_actions[i].court_county
-#      required: False
-#        show if: has_related_actions
-#    - Name of case: related_actions[i].case_name
-#      required: False
-#        show if: has_related_actions
-#    - Docket number of case: related_actions[i].docket_number
-#      required: False
-#        show if: has_related_actions
-#---
 id: questions pertaining to case
 section: jury_claim_made_yes
 question: |
@@ -583,15 +563,6 @@ fields:
   - There are other actions related to this case: has_related_actions
     datatype: yesnowide
 ---
-#id: signature dates
-#question: |
-#  Signature dates to do
-#subquestion: |
-#  Placeholder text
-#fields:
-#  - 'Date of user signature': users[0].signature_date
-#    datatype: date
----
 id: action and track designation
 question: |
   Type of action and track designation
@@ -606,9 +577,6 @@ fields:
     required: True
   - 'If "Other" please describe': description_if_other
     required: False
-#   show if: type_of_action.contains('other') 
-# comment: I think the first three fields should be required because the user will need to fill those in. If not too complex, we may be able to include some show if logic for description if other?
-# comment: I don't think this is possible until we load all the possible answers into the form (with drop downs) - the 'show if' logic I tried isn't triggered when the type_of_action variable contains "other"...
 ---
 id: other damages
 question: |
@@ -724,7 +692,6 @@ code: |
       documented_medical_expenses_other = 0
   else:
       documented_medical_expenses_other = documented_medical_expenses_other
-# we Tan Nring this back in, I just took it out to try avoid the torts question screens Ueing asked when the torts question wasn't selected.
 ---
 sections:
   -  is_representing_plaintiff: Attorney or Pro Se Plaintiff
@@ -760,12 +727,6 @@ fields:
   - 'Defendant address': defendants[0].address
     input type: area
 ---
-#question: |
-#  Sign below, ${attorney}
-#under: |
-#  ${attorney}
-#signature: certification_signature
----
 question: |
   What is the Plaintiff's address?
 subquestion: |
@@ -774,24 +735,6 @@ fields:
   - 'Plaintiff address': plaintiffs[0].address
     input type: area
 ---
-# id: download screen
-# progress: 100
-# mandatory: True
-# question: |
-#   Download screen
-# subquestion: |
-#   Placeholder
-#   
-#   ### Next steps
-#   
-#   1. Step 1
-#   1. Step 2
-#   
-#   Below is a preview of your form.
-#   
-#   ${Civil_Action_Cover_Sheet0026_attachment }
-# attachment code: Civil_Action_Cover_Sheet0026_attachment
-# ---
 id: review all sections
 event: review_all_sections
 question: |
@@ -805,7 +748,7 @@ subquestion: |
   
   % endif
  
-   Click a section to revisit the answers from that section.
+   Tap a section to revisit the answers from that section.
    
     *  [Attorney or Pro Se](${url_action("is_representing_plaintiff")}) 
     % if is_representing_plaintiff is True:
@@ -825,7 +768,7 @@ subquestion: |
     *  [Value of Contract Claims](${url_action("total_contract_claims")})
     *  [Value of Documented or Anticipated Lost Wages, Documented Property Damages, or Anticipated Future Medical Expenses](${url_action("documented_lost_wages")})
   
-  Press "${word("Resume")}" to resume the
+  Tap "${word("Resume")}" to resume the
   interview.
 buttons:
   ${word("Resume")}: continue
@@ -834,20 +777,6 @@ code: |
   del Civil_Action_Cover_Sheet0026_attachment_preview
   first_draft_deleted = True
 ---
-#  id: review before signature
-#  need: form_to_sign
-#  continue button field: preview_screen
-#  question: |
-#    Nearly finished
-#  subquestion: |
-#    You are almost done! Please click on the form below. It will open in a new window so you can review it and make sure it is correct.
-#    Return to this page to make edits to the form by clicking the "Make changes" button below
-#    Don't forget to come back to this page to click to the final step of signing and sending the form to the court. 
-#     ${form_to_sign }
-#     ${action_button_html(url_action('review_all_sections'), icon='edit', label=word("Make changes"))}
-#  
-#  progress: 95
-# ---
 id: persons signature
 question: |
   % if is_representing_plaintiff:
@@ -923,13 +852,15 @@ subquestion: |
   Your form is ready. You still need to call the court
   to figure out the best way to file it. 
     
-  1. Click the "PDF" link below to open the form in a new window.
+  1. Tap the PDF or the "PDF" link below to open the form in a new window.
   2. Download and save or print a copy of this form for your 
   records.
   3. Call the clerk of the ${courts[0]} at ${ courts[0].phone } or call the emergency help line
   at 833-912-6878 to get help filing this form. The clerk may ask you
   to email it, e-file it, or to print and mail it.
   [:file-download: Download with cover page](${final_form_to_file.url_for()})    
+
+   ${Civil_Action_Cover_Sheet0026_attachment}
 
 progress: 100
 section: download
@@ -999,16 +930,6 @@ attachment:
 ---
 code: |
   interview_short_title = "File a Cover Sheet for your Superior Court civil action"
-
-#---
-#id: preview screen
-#continue button field: Civil_Action_Cover_Sheet0026_preview_question
-#question: |
-#  Preview screen
-#subquestion: |
-#  Here is a preview of the form you'll sign on the next page. 
-#  
-#   ${Civil_Action_Cover_Sheet0026_attachment_preview}
 ---
 # mandatory: True
 id: preview screen 1
@@ -1016,7 +937,7 @@ continue button field: Civil_Action_Cover_Sheet0026_preview_question
 question: |
   Preview screen
 subquestion: |
-  Here is a preview of the form you'll sign on the next page. If you'd like to revise your answers or make other edits, click the "Make changes" button. 
+  Here is a preview of the form you'll sign on the next page. If you'd like to revise your answers or make other edits, tap the "Make changes" button. 
   
   Edits will appear on the final version of the form, produced after you have signed.
   
