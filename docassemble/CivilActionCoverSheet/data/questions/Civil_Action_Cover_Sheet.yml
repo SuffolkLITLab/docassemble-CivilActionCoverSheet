@@ -15,7 +15,7 @@ code: |
     'title': 'Civil Action Cover Sheet Initial Commit',
     'short title': 'Civil Action Cover Sheet',
     'description': 'Placeholder text',
-    'original_form': 'https://www.mass.gov/files/documents/2016/08/tf/civil-action-cover-sheet-specific-counties.pdf',
+    'original_form': 'https://www.mass.gov/doc/civil-action-cover/download',
     'allowed courts': [
       'Superior Court',
     ],
@@ -567,7 +567,7 @@ id: action and track designation
 question: |
   Type of action and track designation
 subquestion: |
-  For instructions on how to fill out this section, refer to [Page 2 of the Civil Action Cover Sheet](https://www.mass.gov/files/documents/2016/08/tf/civil-action-cover-sheet-specific-counties.pdf).
+  For instructions on how to fill out this section, refer to [Page 2 of the Civil Action Cover Sheet](https://www.mass.gov/doc/civil-action-cover/download#page=2).
 fields:
   - 'Code number': code_number
     required: True
