@@ -1,6 +1,8 @@
 ---
 include:
   - docassemble.MAVirtualCourt:basic-questions.yml
+  - track_data.yml
+
 ---
 metadata:
   title: Civil Action Cover Sheet
@@ -249,6 +251,7 @@ code: |
   defendants[0].address.address
   nav.set_section('code_number')
   code_number
+  super_cat
   jury_claim_made_yes
   claim_under_glc_93a_yes
   class_action_yes
@@ -566,47 +569,13 @@ fields:
 objects:
   -  sc_list: DADict
   -  sc_short: DADict
+  -  track_desc: DADict
+  -  sc_list1: DADict
 ---
 mandatory: True
+objects from file:
+  - track_data: track_data.yml
 code: |
-  track_data = [
-    {
-          "super category": "Actions Involving the State / Municipality",
-          "category": "Contract Action involving Commonwealth, Municipality, MBTA, etc.",
-          "code": "AA1",
-          "track": "A"
-    },
-    {
-          "super category": "Actions Involving the State / Municipality",
-          "category": "Tortious Action involving Commonwealth, Municipality, MBTA, etc.",
-          "code": "AB1",
-          "track": "A"
-    },
-    {
-      "super category": "Sex Offender Review",
-      "category": "SDP Commitment, G.L. c. 123A, § 12",
-      "code": "E12",
-      "track": "X"
-    },
-    {
-      "super category": "Sex Offender Review",
-      "category": "SDP Petition, G.L. c. 123A, § 9(b)",
-      "code": "E14",
-      "track": "X"
-    },
-    {
-      "super category": "Restricted Civil Actions",
-      "category": "Sex Offender Registry, G.L. c. 6, § 178M",
-      "code": "E19",
-      "track": "X"
-    },
-    {
-      "super category": "Restricted Civil Actions",
-      "category": "Minor Seeking Consent, G.L. c.112, § 12S",
-      "code": "E27",
-      "track": "X"
-    }
-  ]
   sc_list = []
   for cat in track_data:
      sc_list.append(cat['super category'])
@@ -617,8 +586,7 @@ code: |
        sc_short.append(sc)
      else:
        continue
-  case_track = []
-  super_cat = None
+
 ---
 id: action and track designation
 question: |
@@ -626,34 +594,44 @@ question: |
 subquestion: |
   For instructions on how to fill out this section, refer to [Page 2 of the Civil Action Cover Sheet](https://www.mass.gov/files/documents/2016/08/tf/civil-action-cover-sheet-specific-counties.pdf).
 fields: 
-  - 'Code number': code_number
-    required: True
-#  - 'Type of action': type_of_action
-#    required: True
-  - 'Track': track
-    required: True
-  - 'If "Other" please describe': description_if_other
-    required: False
-  - Super Category: super_cat
+  - Type of Case: super_cat
     input type: radio
     code: |
       sc_short
-  - Type of Case: type_of_action
+---
+mandatory: True
+objects from file:
+  - track_data: track_data.yml
+code: |
+  track_desc = [track['category'] for track in track_data if track['super category'] == super_cat]
+
+---
+mandatory: True
+id: track designation
+question: |
+  What is the Type of Action for this case?
+subquestion: |
+  For instructions on how to fill out this section, refer to [Page 2 of the Civil Action Cover Sheet](https://www.mass.gov/files/documents/2016/08/tf/civil-action-cover-sheet-specific-counties.pdf).
+fields: 
+#  - 'Code number': code_number
+#    required: False
+#  - 'Track': track
+#    required: False
+#  - 'If "Other" please describe': track_name
+#    required: False
+#  - Case Category: description_if_other
+  - 'Type of action': type_of_action
+    required: True
     input type: radio
     code: |
-      case_track
-check in: check_in
+      track_desc
 ---
-event: check_in
+initial: True
+objects from file:
+  - track_data: track_data.yml
 code: |
-  if action_argument('super_cat') != super_cat:
-    case_track = range(1, 10)
-  case_track = range(1, 10)
-  background_response('refresh')
-  # background_response()
-#   for case_cat in track_data: 
-#     if case_cat['super category'] == str(action_argument("super_cat")):
-#       case_track.append(case_cat['category'])
+  code_number = [track['code'] for track in track_data if track['category'] == type_of_action][0]
+  track = [track['track'] for track in track_data if track['category'] == type_of_action][0]
 ---
 id: other damages
 question: |
