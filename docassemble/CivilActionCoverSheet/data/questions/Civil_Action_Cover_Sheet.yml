@@ -592,7 +592,7 @@ id: action and track designation
 question: |
   Type of action and track designation
 subquestion: |
-  For instructions on how to fill out this section, refer to [Page 2 of the Civil Action Cover Sheet](https://www.mass.gov/files/documents/2016/08/tf/civil-action-cover-sheet-specific-counties.pdf).
+  For instructions on how to fill out this section, refer to [Page 2 of the Civil Action Cover Sheet](https://www.mass.gov/doc/civil-action-cover/download).
 fields: 
   - Type of Case: super_cat
     input type: radio
@@ -611,7 +611,7 @@ id: track designation
 question: |
   What is the Type of Action for this case?
 subquestion: |
-  For instructions on how to fill out this section, refer to [Page 2 of the Civil Action Cover Sheet](https://www.mass.gov/files/documents/2016/08/tf/civil-action-cover-sheet-specific-counties.pdf).
+  For instructions on how to fill out this section, refer to [Page 2 of the Civil Action Cover Sheet](https://www.mass.gov/doc/civil-action-cover/download).
 fields: 
 #  - 'Code number': code_number
 #    required: False
