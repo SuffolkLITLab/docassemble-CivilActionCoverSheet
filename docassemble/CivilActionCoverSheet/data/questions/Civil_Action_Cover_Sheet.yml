@@ -604,7 +604,6 @@ objects from file:
   - track_data: track_data.yml
 code: |
   track_desc = [track['category'] for track in track_data if track['super category'] == super_cat]
-
 ---
 mandatory: True
 id: track designation
@@ -613,13 +612,10 @@ question: |
 subquestion: |
   For instructions on how to fill out this section, refer to [Page 2 of the Civil Action Cover Sheet](https://www.mass.gov/doc/civil-action-cover/download).
 fields: 
-#  - 'Code number': code_number
-#    required: False
-#  - 'Track': track
-#    required: False
-#  - 'If "Other" please describe': track_name
-#    required: False
-#  - Case Category: description_if_other
+  - 'If case type is "Other," please describe the case then select "Other" below': description_if_other
+    show if: 
+      code: |
+        super_cat == "Other"
   - 'Type of action': type_of_action
     required: True
     input type: radio
