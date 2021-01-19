@@ -249,9 +249,9 @@ code: |
   other_parties[0].person_type
   nav.set_section('defendants[0].address.address')
   defendants[0].address.address
-  nav.set_section('code_number')
-  code_number
+  nav.set_section('super_cat')
   super_cat
+  code_number
   jury_claim_made_yes
   claim_under_glc_93a_yes
   class_action_yes
@@ -590,7 +590,7 @@ code: |
 ---
 id: action and track designation
 question: |
-  Type of action and track designation
+  Case Type
 subquestion: |
   For instructions on how to fill out this section, refer to [Page 2 of the Civil Action Cover Sheet](https://www.mass.gov/doc/civil-action-cover/download).
 fields: 
@@ -598,6 +598,7 @@ fields:
     input type: radio
     code: |
       sc_short
+section: super_cat
 ---
 mandatory: True
 objects from file:
@@ -620,14 +621,14 @@ fields:
     required: True
     input type: radio
     code: |
-      track_desc
+      [track['category'] for track in track_data if track['super category'] == super_cat]
+section: type_of_action
 ---
-initial: True
-objects from file:
-  - track_data: track_data.yml
+depends on:
+  - type_of_action
 code: |
-  code_number = [track['code'] for track in track_data if track['category'] == type_of_action][0]
-  track = [track['track'] for track in track_data if track['category'] == type_of_action][0]
+  code_number = next(track['code'] for track in track_data if track['category'] == type_of_action)
+  track = next(track['track'] for track in track_data if track['category'] == type_of_action)
 ---
 id: other damages
 question: |
@@ -752,7 +753,8 @@ sections:
   -  users[0].address.address: Plaintiff Address
   -  other_parties[0].person_type: Other Parties Type and Name
   -  defendants[0].address.address: Other Parties Address
-  -  code_number: Type of Action and Track Designation
+  -  super_cat: Case Type
+  -  type_of_action: Type of Action
   -  jury_claim_made_yes: Jury Trial Needed?
   -  jury_claim_made_yes: Claim under G.L.c. 93A?
   -  jury_claim_made_yes: Claim Involves Collection of Debt?
@@ -810,7 +812,8 @@ subquestion: |
     *  [Plaintiff Address](${url_action("users[0].address.address")})
     *  [Other Parties Type and Name](${url_action("other_parties[0].person_type")})
     *  [Other Parties Address](${url_action("defendants[0].address.address")})
-    *  [Type of Action and Track Designation](${url_action("code_number")})
+    *  [Case Type](${url_ask(["super_cat", "type_of_action"])})
+    *  [Type of Action](${url_action("type_of_action")})
     *  [Case Details](${url_action("jury_claim_made_yes")})
       *  Is a jury trial needed?
       *  Is this a claim under [G.L.c. 93A](https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXV/Chapter93A)?
