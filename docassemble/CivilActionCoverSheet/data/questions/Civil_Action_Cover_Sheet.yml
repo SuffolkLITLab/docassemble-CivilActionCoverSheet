@@ -318,7 +318,7 @@ fields:
     datatype: checkboxes
     minlength: 1
     choices:
-      - I certify
+      - I Certify
     validation messages:
       minlength: |
         You cannot continue unless you check this box.
@@ -548,6 +548,7 @@ fields:
 ---
 id: questions pertaining to case
 section: jury_claim_made_yes
+continue button field: damages_to_claim
 question: |
   Pertaining to your case
 fields:
@@ -995,7 +996,7 @@ subquestion: |
   
   Edits will appear on the final version of the form, produced after you have signed.
   
-   ${action_button_html(url_action('review_all_sections'), icon='edit', label=word("Make changes"))}
+   ${action_button_html(url_action('review_Civil_Action_Cover_Sheet'), icon='edit', label=word("Make changes"))}
 
    ${Civil_Action_Cover_Sheet0026_attachment_preview}
 ---
@@ -1049,3 +1050,99 @@ attachment:
       - "user_signature_date": ${ users[0].signature_date }
       - "related_actions": ${ comma_and_list([action.docket_number + ", " + action.case_name + ", " + action.court_county for action in related_actions]) }
       - "certification_signature_date": ${ signature_date if is_representing_plaintiff else '' }
+---
+id: Civil_Action_Cover_Sheet review screen
+event: review_Civil_Action_Cover_Sheet
+question: |
+  Review Your Answers
+subquestion: |
+  Edit your answers below
+review: 
+  - Edit: attorney.name.first
+    button: |
+      Attorney(s): [BR]
+      ${ attorney.name }
+  - Edit: attorney.address.address
+    button: |
+      Attorney Address: [BR]
+      ${ attorney.address }
+  - Edit: bbo_number
+    button: |
+      BBO Number: [BR]
+      ${ bbo_number }
+  - Edit: agrees_to_certify
+    button: |
+      Certification of Compliance with Rule 5:[BR]
+      ${ agrees_to_certify } on ${ certification_signature_date.format() }
+  - Edit: users[0].name.first
+    button: |
+      Plaintiff: [BR]
+      ${ plaintiffs }
+  - Edit: 
+    -  plaintiffs[0].address.address
+    button: |
+      Plaintiff's Address: [BR]
+      ${ plaintiffs[0].address }
+  - Edit: defendants[0].name.first
+    button: |
+      Defendant(s): [BR]
+      ${ defendants[0] }
+  - Edit: defendants[0].address.address
+    button: |
+      Defendant's Address: [BR]
+      ${ defendants[0].address }
+  - Edit: 
+    - super_cat
+    - type_of_action
+    button: |
+      Type of Action and Track [BR]
+      - Case Type: ${ super_cat }[BR]
+      - Type of Action: ${ type_of_action }[BR]
+      - Description: ${ description_if_other }[BR]
+      - Code Number: ${ code_number }[BR]
+      - Track: ${ track }
+  - Edit: jury_claim_made_yes
+    button: |
+      Case Detail [BR]
+      - Has a jury claim been made?: ${ word(yesno(jury_claim_made_yes)) }[BR]
+      - Is this a class action?: ${ word(yesno(class_action_yes)) }[BR]
+      - Is this a claim under glc 93a?: ${ word(yesno(claim_under_glc_93a_yes)) }[BR]
+      - Is this a collection of debt?: ${ word(yesno(collection_of_debt_yes)) }
+  - Edit: 
+    -  damages_to_claim
+    -  documented_medical_expenses_total
+    button: |
+      Tort Claims[BR]
+      - Documented Medical Expenses: ${ documented_medical_expenses_total } [BR]
+      - Documented Lost Wages and Compensation: ${ documented_lost_wages } [BR]
+      - Documented Property Damages:  ${ documented_property_damages } [BR]
+      - Anticipated Future Medical Expenses: ${ anticipated_future_medical_expenses } [BR]
+      - Anticipated Lost Wages: ${ anticipated_lost_wages } [BR]
+      - Other Documented Damages: ${ documented_damages }[BR]
+      - Other Documented Damages (Description): ${ documented_items_of_damages_other }[BR]
+      - Total Tort Claims: ${ total_tort_claims } 
+  - Edit: total_contract_claims
+    button: |
+      Contract claims[BR]
+      - Amount of Contract Claims: ${ total_contract_claims }[BR]
+      - Description of Contract Claims: ${ description_of_claim }
+  - Edit: description_plaintiff_injury
+    button: |
+      Description of the plaintiff's injury: [BR]
+      ${ description_plaintiff_injury }
+  - Edit: related_actions[0].docket_number
+    button: |
+      Related Actions:[BR]
+      -  Docket Number: ${ related_actions[0].docket_number }[BR]
+      -  Case Name: ${ related_actions[0].case_name }[BR]
+      -  Court County: ${ related_actions[0].court_county }
+  - Edit: courts[0]
+    button: |
+      Court to File Claim: [BR]
+      ${ courts[0].address.county }
+---
+features:
+  navigation: True
+---
+sections:
+  - review_Civil_Action_Cover_Sheet: Review your answers
