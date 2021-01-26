@@ -622,7 +622,7 @@ fields:
     required: True
     input type: radio
     code: |
-      [track['category'] for track in track_data if track['super category'] == super_cat]
+      [track['category'] for track in track_data if track['super category'] == super_cat] 
 section: type_of_action
 ---
 depends on:
@@ -763,16 +763,16 @@ sections:
   -  total_contract_claims: Value of Contract Claims
   -  documented_lost_wages: Documented or Anticipated Lost Wages, Documented Property Damages, or Anticipated Future Medical Expenses
 ---
-question: |
- What are your details?
-subquestion: |
-  Enter your registered address and BBO.
-fields:
-  - 'Attorney address': attorney.address
-    input type: area
-    required: False
-  - 'BBO number': bbo_number
----
+# question: |
+#  What are your details?
+# subquestion: |
+#   Enter your registered address and BBO.
+# fields:
+#   - 'Attorney address': attorney.address
+#     input type: area
+#     required: False
+#   - 'BBO number': bbo_number
+# ---
 question: |
   What is the Defendant's address?
 subquestion: |
@@ -1058,85 +1058,89 @@ question: |
 subquestion: |
   Edit your answers below
 review: 
-  - Edit: attorney.name.first
+  - Edit Attorney Name: attorney.name.first
     button: |
       Attorney(s): [BR]
       ${ attorney.name }
-  - Edit: attorney.address.address
+  - Edit Attorney Address: attorney.address.address
     button: |
       Attorney Address: [BR]
       ${ attorney.address }
-  - Edit: bbo_number
+  - Edit Attorney BBO Number: bbo_number
     button: |
       BBO Number: [BR]
       ${ bbo_number }
-  - Edit: agrees_to_certify
+  - Edit Attorney Certification: agrees_to_certify
     button: |
       Certification of Compliance with Rule 5:[BR]
       ${ agrees_to_certify } on ${ certification_signature_date.format() }
-  - Edit: users[0].name.first
+  - Edit Plaintiff Name: users[0].name.first
     button: |
       Plaintiff: [BR]
       ${ plaintiffs }
-  - Edit: 
+  - Edit Plaintiff Address: 
     -  plaintiffs[0].address.address
     button: |
-      Plaintiff's Address: [BR]
+      Plaintiff Address: [BR]
       ${ plaintiffs[0].address }
-  - Edit: defendants[0].name.first
+  - Edit Defendant Name(s): defendants[0].name.first
     button: |
       Defendant(s): [BR]
       ${ defendants[0] }
-  - Edit: defendants[0].address.address
+  - Edit Defendant Address(es): defendants[0].address.address
     button: |
       Defendant's Address: [BR]
       ${ defendants[0].address }
-  - Edit: 
+  - Edit Type of Action: 
     - super_cat
     - type_of_action
+    - description_if_other
     button: |
-      Type of Action and Track [BR]
+      Type of Action [BR]
       - Case Type: ${ super_cat }[BR]
       - Type of Action: ${ type_of_action }[BR]
-      - Description: ${ description_if_other }[BR]
+      % if super_cat == "Other": 
+      - Description: 
+      % else:
       - Code Number: ${ code_number }[BR]
       - Track: ${ track }
-  - Edit: jury_claim_made_yes
+      % endif
+  - Edit Case Information: jury_claim_made_yes
     button: |
-      Case Detail [BR]
+      Case Information [BR]
       - Has a jury claim been made?: ${ word(yesno(jury_claim_made_yes)) }[BR]
       - Is this a class action?: ${ word(yesno(class_action_yes)) }[BR]
       - Is this a claim under glc 93a?: ${ word(yesno(claim_under_glc_93a_yes)) }[BR]
       - Is this a collection of debt?: ${ word(yesno(collection_of_debt_yes)) }
-  - Edit: 
+  - Edit Tort Claims: 
     -  damages_to_claim
     -  documented_medical_expenses_total
     button: |
       Tort Claims[BR]
-      - Documented Medical Expenses: ${ documented_medical_expenses_total } [BR]
-      - Documented Lost Wages and Compensation: ${ documented_lost_wages } [BR]
-      - Documented Property Damages:  ${ documented_property_damages } [BR]
-      - Anticipated Future Medical Expenses: ${ anticipated_future_medical_expenses } [BR]
-      - Anticipated Lost Wages: ${ anticipated_lost_wages } [BR]
-      - Other Documented Damages: ${ documented_damages }[BR]
-      - Other Documented Damages (Description): ${ documented_items_of_damages_other }[BR]
-      - Total Tort Claims: ${ total_tort_claims } 
-  - Edit: total_contract_claims
+      - Documented Medical Expenses: ${ '{:,}'.format(int(round(documented_medical_expenses_total)))} [BR]
+      - Documented Lost Wages and Compensation: ${ '{:,}'.format(int(round(documented_lost_wages)))} [BR]
+      - Documented Property Damages:  ${ '{:,}'.format(int(round(documented_property_damages)))} [BR]
+      - Anticipated Future Medical Expenses: ${ '{:,}'.format(int(round(anticipated_future_medical_expenses)))} [BR]
+      - Anticipated Lost Wages: ${ '{:,}'.format(int(round(anticipated_lost_wages)))} [BR]
+      - Other Documented Damages: ${ '{:,}'.format(int(round(documented_damages)))}[BR]
+      - Other Documented Damages (Description): ${ documented_items_of_damages_other}[BR]
+      - Total Tort Claims: ${ '{:,}'.format(int(round(total_tort_claims)))} 
+  - Edit Contract Claims: total_contract_claims
     button: |
       Contract claims[BR]
-      - Amount of Contract Claims: ${ total_contract_claims }[BR]
+      - Amount of Contract Claims: ${ '{:,}'.format(int(round(total_contract_claims)))}[BR]
       - Description of Contract Claims: ${ description_of_claim }
-  - Edit: description_plaintiff_injury
+  - Edit Description of Injury: description_plaintiff_injury
     button: |
       Description of the plaintiff's injury: [BR]
       ${ description_plaintiff_injury }
-  - Edit: related_actions[0].docket_number
+  - Edit Related Action(s): related_actions[0].docket_number
     button: |
       Related Actions:[BR]
       -  Docket Number: ${ related_actions[0].docket_number }[BR]
       -  Case Name: ${ related_actions[0].case_name }[BR]
       -  Court County: ${ related_actions[0].court_county }
-  - Edit: courts[0]
+  - Edit Court: courts[0]
     button: |
       Court to File Claim: [BR]
       ${ courts[0].address.county }
