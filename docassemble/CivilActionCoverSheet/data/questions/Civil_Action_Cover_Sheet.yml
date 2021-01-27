@@ -1056,19 +1056,20 @@ event: review_Civil_Action_Cover_Sheet
 question: |
   Review Your Answers
 subquestion: |
-  Edit your answers below
+  Edit your answers below:
+
 review: 
   - Edit Attorney Name: attorney.name.first
     button: |
-      Attorney(s): [BR]
+      **Attorney(s)**: [BR]
       ${ attorney.name }
   - Edit Attorney Address: attorney.address.address
     button: |
-      Attorney Address: [BR]
+      **Attorney Address**: [BR]
       ${ attorney.address }
   - Edit Attorney BBO Number: bbo_number
     button: |
-      BBO Number: [BR]
+      **BBO Number**: [BR]
       ${ bbo_number }
   - Edit Attorney Certification: agrees_to_certify
     button: |
@@ -1076,38 +1077,37 @@ review:
       ${ agrees_to_certify } on ${ certification_signature_date.format() }
   - Edit Plaintiff Name: users[0].name.first
     button: |
-      Plaintiff: [BR]
+      **Plaintiff**: [BR]
       ${ plaintiffs }
   - Edit Plaintiff Address: 
     -  plaintiffs[0].address.address
     button: |
-      Plaintiff Address: [BR]
+      **Plaintiff Address**: [BR]
       ${ plaintiffs[0].address }
   - Edit Defendant Name(s): defendants[0].name.first
     button: |
-      Defendant(s): [BR]
+      **Defendant(s)**: [BR]
       ${ defendants[0] }
   - Edit Defendant Address(es): defendants[0].address.address
     button: |
-      Defendant's Address: [BR]
+      **Defendant's Address**: [BR]
       ${ defendants[0].address }
   - Edit Type of Action: 
     - super_cat
     - type_of_action
-    - description_if_other
     button: |
-      Type of Action [BR]
+      **Type of Action**: [BR]
       - Case Type: ${ super_cat }[BR]
       - Type of Action: ${ type_of_action }[BR]
       % if super_cat == "Other": 
-      - Description: 
+      - Description: ${ description_if_other }
       % else:
       - Code Number: ${ code_number }[BR]
       - Track: ${ track }
       % endif
   - Edit Case Information: jury_claim_made_yes
     button: |
-      Case Information [BR]
+      **Case Information**: [BR]
       - Has a jury claim been made?: ${ word(yesno(jury_claim_made_yes)) }[BR]
       - Is this a class action?: ${ word(yesno(class_action_yes)) }[BR]
       - Is this a claim under glc 93a?: ${ word(yesno(claim_under_glc_93a_yes)) }[BR]
@@ -1116,33 +1116,33 @@ review:
     -  damages_to_claim
     -  documented_medical_expenses_total
     button: |
-      Tort Claims[BR]
-      - Documented Medical Expenses: ${ '{:,}'.format(int(round(documented_medical_expenses_total)))} [BR]
-      - Documented Lost Wages and Compensation: ${ '{:,}'.format(int(round(documented_lost_wages)))} [BR]
-      - Documented Property Damages:  ${ '{:,}'.format(int(round(documented_property_damages)))} [BR]
-      - Anticipated Future Medical Expenses: ${ '{:,}'.format(int(round(anticipated_future_medical_expenses)))} [BR]
-      - Anticipated Lost Wages: ${ '{:,}'.format(int(round(anticipated_lost_wages)))} [BR]
-      - Other Documented Damages: ${ '{:,}'.format(int(round(documented_damages)))}[BR]
+      **Tort Claims**:[BR]
+      - Documented Medical Expenses: ${ currency(documented_medical_expenses_total, decimals=False)} [BR]
+      - Documented Lost Wages and Compensation: ${ currency(documented_lost_wages, decimals=False)} [BR]
+      - Documented Property Damages:  ${ currency(documented_property_damages, decimals=False)} [BR]
+      - Anticipated Future Medical Expenses: ${ currency(anticipated_future_medical_expenses, decimals=False)} [BR]
+      - Anticipated Lost Wages: ${ currency(anticipated_lost_wages, decimals=False)} [BR]
+      - Other Documented Damages: ${ currency(documented_damages, decimals=False)}[BR]
       - Other Documented Damages (Description): ${ documented_items_of_damages_other}[BR]
-      - Total Tort Claims: ${ '{:,}'.format(int(round(total_tort_claims)))} 
+      - *Total Tort Claims: ${ currency(total_tort_claims, decimals=False)}* 
   - Edit Contract Claims: total_contract_claims
     button: |
-      Contract claims[BR]
-      - Amount of Contract Claims: ${ '{:,}'.format(int(round(total_contract_claims)))}[BR]
+      **Contract claims**:[BR]
+      - Amount of Contract Claims: ${ currency(total_contract_claims, decimals=False)}[BR]
       - Description of Contract Claims: ${ description_of_claim }
   - Edit Description of Injury: description_plaintiff_injury
     button: |
-      Description of the plaintiff's injury: [BR]
+      **Description of the plaintiff's injury**: [BR]
       ${ description_plaintiff_injury }
   - Edit Related Action(s): related_actions[0].docket_number
     button: |
-      Related Actions:[BR]
+      **Related Actions**:[BR]
       -  Docket Number: ${ related_actions[0].docket_number }[BR]
       -  Case Name: ${ related_actions[0].case_name }[BR]
       -  Court County: ${ related_actions[0].court_county }
   - Edit Court: courts[0]
     button: |
-      Court to File Claim: [BR]
+      **Court to File Claim**: [BR]
       ${ courts[0].address.county }
 ---
 features:
