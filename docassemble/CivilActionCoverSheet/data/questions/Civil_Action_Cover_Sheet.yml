@@ -1113,8 +1113,14 @@ review:
       - Is this a claim under glc 93a?: ${ word(yesno(claim_under_glc_93a_yes)) }[BR]
       - Is this a collection of debt?: ${ word(yesno(collection_of_debt_yes)) }
   - Edit Tort Claims: 
-    -  damages_to_claim
-    -  documented_medical_expenses_total
+    - documented_medical_expenses_hospital
+    - documented_lost_wages
+    - documented_property_damages
+    - anticipated_future_medical_expenses
+    - anticipated_lost_wages
+    - documented_damages
+    - documented_items_of_damages_other
+    - documented_medical_expenses_total
     button: |
       **Tort Claims**:[BR]
       - Documented Medical Expenses: ${ currency(documented_medical_expenses_total, decimals=False)} [BR]
