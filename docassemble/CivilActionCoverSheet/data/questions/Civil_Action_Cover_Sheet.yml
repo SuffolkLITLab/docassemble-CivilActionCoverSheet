@@ -2,7 +2,6 @@
 include:
   - docassemble.MAVirtualCourt:basic-questions.yml
   - track_data.yml
-
 ---
 metadata:
   title: Civil Action Cover Sheet
@@ -791,6 +790,7 @@ fields:
     input type: area
 ---
 id: review all sections
+# this screen show be deleted
 event: review_all_sections
 question: |
   Review of your answers
