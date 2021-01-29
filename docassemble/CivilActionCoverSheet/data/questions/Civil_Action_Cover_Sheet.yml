@@ -622,7 +622,7 @@ fields:
     required: True
     input type: radio
     code: |
-      [track['category'] for track in track_data if track['super category'] == super_cat] 
+      {track['category']: track['code'] + ": " + track['category'] for track in track_data if track['super category'] == super_cat} 
 section: type_of_action
 ---
 depends on:
@@ -630,6 +630,7 @@ depends on:
 code: |
   code_number = next(track['code'] for track in track_data if track['category'] == type_of_action)
   track = next(track['track'] for track in track_data if track['category'] == type_of_action)
+
 ---
 id: other damages
 question: |
@@ -1087,7 +1088,7 @@ review:
   - Edit Defendant Name(s): defendants[0].name.first
     button: |
       **Defendant(s)**: [BR]
-      ${ defendants[0] }
+      ${ defendants }
   - Edit Defendant Address(es): defendants[0].address.address
     button: |
       **Defendant's Address**: [BR]
