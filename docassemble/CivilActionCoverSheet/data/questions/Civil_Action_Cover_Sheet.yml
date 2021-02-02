@@ -90,6 +90,7 @@ code: |
   str(plaintiffs[0])
   trial_court.address.county
   str(defendants[0])
+  applicant_document
   Civil_Action_Cover_Sheet0026_preview_question
   signature_date
   basic_questions_signature_flow
@@ -632,6 +633,32 @@ subquestion: |
 fields:
   - 'Plaintiff address': plaintiffs[0].address
     input type: area
+--- 
+id: accompanying documents
+question: |
+  Upload your documents
+subquestion: |
+  You may attach your underlying complaint to the cover sheet. 
+  
+  Any additional submissions, presented as a separate document, must not exceed 20 pages and should:
+  
+    - be in an {A4 page format} with a margin of not less than 3.5 cm wide;
+    - be wholly legible and, if typed, the text should be at least 12 pt in the body of the document and 10 pt in the footnotes, with 1.5 line spacing;
+    - have all numbers expressed as figures; 
+    - have pages numbered consecutively;   
+    - be divided into numbered paragraphs.
+    
+# If you are unable to provide a copy of any of these documents right now, you can save the cover sheet and submit it with the underlying complaint to the court in person.
+fields:
+  - Documents: applicant_document
+    datatype: file
+  - Describe this document: applicant_document_description
+terms:
+  A4 page format: |
+    A4 measures 210 × 297 millimeters.
+---
+code: |
+  Application_Form_ENG_download = pdf_concatenate(Application_Form_ENG, applicant_document, filename="Application_Form_ENG.pdf")
 ---
 id: review all sections
 # this screen show be deleted
