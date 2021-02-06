@@ -1064,40 +1064,40 @@ subquestion: |
   Edit your answers below:
 
 review: 
-  - Edit Attorney Name: attorney.name.first
+  - Change Answer: attorney.name.first
     button: |
       **Attorney**: [BR]
       ${ attorney.name }
-  - Edit Attorney Address: attorney.address.address
+  - Change Answer: attorney.address.address
     button: |
       **Attorney Address**: [BR]
       ${ attorney.address }
-  - Edit Attorney BBO Number: bbo_number
+  - Change Answer: bbo_number
     button: |
       **BBO Number**: [BR]
       ${ bbo_number }
-  - Edit Attorney Certification: agrees_to_certify
+  - Change Answer: agrees_to_certify
     button: |
       Certification of Compliance with Rule 5:[BR]
       ${ agrees_to_certify } on ${ certification_signature_date.format() }
-  - Edit Plaintiff Name: users[0].name.first
+  - Change Answer: users[0].name.first
     button: |
       **Plaintiff**: [BR]
       ${ users }
-  - Edit Plaintiff Address: 
+  - Change Answer: 
     -  users[0].address.address
     button: |
       **Plaintiff Address**: [BR]
       ${ users[0].address }
-  - Edit Defendant Name(s): defendants[0].name.first
+  - Change Answer: defendants[0].name.first
     button: |
       **Defendant(s)**: [BR]
       ${ defendants[0] }
-  - Edit Defendant Address(es): defendants[0].address.address
+  - Change Answer: defendants[0].address.address
     button: |
       **Defendant's Address**: [BR]
       ${ defendants[0].address }
-  - Edit Type of Action: 
+  - Change Answer: 
     - super_cat
     - type_of_action
     button: |
@@ -1110,14 +1110,17 @@ review:
       - Code Number: ${ code_number }[BR]
       - Track: ${ track }
       % endif
-  - Edit Case Information: jury_claim_made_yes
+  - Change Answers: jury_claim_made_yes
     button: |
       **Case Information**: [BR]
       - Has a jury claim been made?: ${ word(yesno(jury_claim_made_yes)) }[BR]
       - Is this a class action?: ${ word(yesno(class_action_yes)) }[BR]
       - Is this a claim under glc 93a?: ${ word(yesno(claim_under_glc_93a_yes)) }[BR]
-      - Is this a collection of debt?: ${ word(yesno(collection_of_debt_yes)) }
-  - Edit Tort Claims: 
+      - Is this a collection of debt?: ${ word(yesno(collection_of_debt_yes)) } [BR]
+      - Does this case include tort claims? ${ word(yesno(has_tort_claims)) } [BR]
+      - Does this case include contract claims? ${ word(yesno(has_contract_claims)) }[BR]
+      - Are there other related actions to this case? ${ word(yesno(has_related_actions)) } 
+  - Change Answer: 
     -  damages_to_claim
     -  documented_medical_expenses_total
     button: |
@@ -1130,22 +1133,22 @@ review:
       - Other Documented Damages: ${ currency(documented_damages, decimals=False)}[BR]
       - Other Documented Damages (Description): ${ documented_items_of_damages_other}[BR]
       - *Total Tort Claims: ${ currency(total_tort_claims, decimals=False)}* 
-  - Edit Contract Claims: total_contract_claims
+  - Change Answer: total_contract_claims
     button: |
       **Contract claims**:[BR]
       - Amount of Contract Claims: ${ currency(total_contract_claims, decimals=False)}[BR]
       - Description of Contract Claims: ${ description_of_claim }
-  - Edit Description of Injury: description_plaintiff_injury
+  - Change Answer: description_plaintiff_injury
     button: |
       **Description of the plaintiff's injury**: [BR]
       ${ description_plaintiff_injury }
-  - Edit Related Action(s): related_actions[0].docket_number
+  - Change Answer: related_actions[0].docket_number
     button: |
       **Related Actions**:[BR]
       -  Docket Number: ${ related_actions[0].docket_number }[BR]
       -  Case Name: ${ related_actions[0].case_name }[BR]
       -  Court County: ${ related_actions[0].court_county }
-  - Edit Court: courts[0]
+  - Change Answer: courts[0]
     button: |
       **Court to File Claim**: [BR]
       ${ courts[0].address.county }
