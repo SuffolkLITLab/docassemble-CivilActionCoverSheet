@@ -290,7 +290,7 @@ fields:
   - Are you an attorney representing a plaintiff?: is_representing_plaintiff
     datatype: yesnoradio
   - 'Attorney BBO Number': bbo_number
-    show if:
+    show if: 
       variable: is_representing_plaintiff
       is: True
 ---
@@ -306,6 +306,8 @@ fields:
     code: |
       name_suffix()
     required: False
+depends on:
+  - is_representing_plaintiff
 ---
 id: attorney certification
 question: |
@@ -321,6 +323,9 @@ fields:
     validation messages:
       minlength: |
         You cannot continue unless you check this box.
+depends on:
+  - is_representing_plaintiff
+
 # - 'Date of certification': certification_signature_date
 #   datatype: date
 #   default: ${today().format("yyyy-MM-dd")}
@@ -386,6 +391,9 @@ fields:
       states_list()   
   - Zip: attorney.address.zip
     required: False
+depends on:
+  - is_representing_plaintiff
+
 ---
 id: names of opposing party
 question: |
@@ -435,6 +443,8 @@ fields:
     help: |
       Provide example description.
 section: total_contract_claims
+depends on:
+  - has_contract_claims
 ---
 code: |
   if total_contract_claims == "":
@@ -455,6 +465,9 @@ fields:
     maxlength: 120
     help: |
       Provide example injury description.
+depends on:
+  - has_tort_claims
+
 ---
 id: other documented damages
 continue button field: Does_Plaintiff_have_other_documented_damages
@@ -475,6 +488,9 @@ fields:
     input type: area
     help: |
       Provide examples of types of additional damages that can be listed here.
+depends on:
+  - has_tort_claims
+
 ---
 id: claim involving collection of debt
 question: |
@@ -498,6 +514,9 @@ subquestion: |
   Sub-total documented medical expenses to date
 fields:
   - 'Total tort claims': total_tort_claims
+depends on:
+  - has_tort_claims
+
 ---
 code: |
   if has_tort_claims:
@@ -506,6 +525,9 @@ code: |
   else: 
     documented_medical_expenses_total = 0
     total_tort_claims = 0
+depends on:
+  - has_tort_claims
+
 ---
 comment: |
   id: claim under G.L. c. 93A
@@ -663,6 +685,9 @@ fields:
     required: False
     help: |
       Provide details on how to calculate this amount.
+depends on:
+  - has_tort_claims
+
 section: documented_lost_wages
 ---
 code: |
@@ -719,6 +744,8 @@ fields:
     required: False
     help: |
       Include all documented medical expenses incurred in connection with this claim that have not been provided in the hospital, doctor, chiropractor, or physical therapy sections.
+depends on:
+  - has_tort_claims
 ---
 code: |
   if not has_tort_claims: 
@@ -1064,9 +1091,13 @@ subquestion: |
   Edit your answers below:
 
 review: 
+  - Change Answer: is_representing_plaintiff
+    button: |
+      **Attorney Representation**: [BR]
+      Are you an attorney representing a plaintiff: ${ word(yesno(is_representing_plaintiff)) }[BR]
   - Change Answer: attorney.name.first
     button: |
-      **Attorney**: [BR]
+      **Attorney Name**: [BR]
       ${ attorney.name }
   - Change Answer: attorney.address.address
     button: |
@@ -1083,7 +1114,8 @@ review:
   - Change Answer: users[0].name.first
     button: |
       **Plaintiff**: [BR]
-      ${ users }
+      - Name: ${ users } [BR]
+      - Case has multiple plaintffs: ${ word(yesno(are_multiple_plaintiffs)) }
   - Change Answer: 
     -  users[0].address.address
     button: |
@@ -1091,8 +1123,9 @@ review:
       ${ users[0].address }
   - Change Answer: defendants[0].name.first
     button: |
-      **Defendant(s)**: [BR]
-      ${ defendants[0] }
+      **Defendant**: [BR]
+      - Name: ${ defendants[0] } [BR]
+      - Case has multiple defendants: ${ word(yesno(are_multiple_defendants)) }
   - Change Answer: defendants[0].address.address
     button: |
       **Defendant's Address**: [BR]
