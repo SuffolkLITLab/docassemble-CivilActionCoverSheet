@@ -349,6 +349,12 @@ fields:
   - Are there multiple plaintiffs in this case?: are_multiple_plaintiffs
     datatype: yesnoradio
 ---
+code: |
+  if are_multiple_plaintiffs:
+    plaintiffs = users[0] + ", et.al"
+  else:
+    plaintiffs = users[0]
+---
 id: plaintiffs address
 question: |
   % if is_representing_plaintiff:
@@ -1049,9 +1055,19 @@ attachment:
     filename: Civil_Action_Cover_Sheet
     pdf template file: Civil_Action_Cover_Sheet.pdf
     fields: 
-      - "plaintiff": ${ str(users[0]) }
+      - "plaintiff": |
+         % if are_multiple_plaintiffs:
+         ${ users }, et.al.
+         % else:
+         ${ users } 
+         % endif
       - "court_county": ${ courts[0].address.county }
-      - "defendant": ${ str(defendants[0]) }
+      - "defendant": |
+         % if are_multiple_defendants:
+         ${ str(defendants[0]) }, et.al.
+         % else:
+         ${ str(defendants[0]) } 
+         % endif
       - "attorney": ${ attorney }
       - "plaintiff_address": ${ users[0].address }
       - "attorney_address": ${ attorney.address }
@@ -1127,17 +1143,25 @@ review:
   - Change Answer: users[0].name.first
     button: |
       **Plaintiff**: [BR]
-      - Name: ${ users } [BR]
+        % if are_multiple_plaintiffs:
+        - Name: ${ users }, et.al. [BR]
+        % else:
+        - Name: ${ users } [BR]
+        %endif
       - Case has multiple plaintffs: ${ word(yesno(are_multiple_plaintiffs)) }
   - Change Answer: 
     -  users[0].address.address
     button: |
       **Plaintiff Address**: [BR]
       ${ users[0].address }
-  - Change Answer: defendants[0].name.first
+  - Change Answer: other_parties[0].name.first
     button: |
       **Defendant**: [BR]
-      - Name: ${ defendants[0] } [BR]
+        % if are_multiple_defendants:
+        - Name: ${ defendants[0] }, et.al. [BR]
+        % else:
+        - Name: ${ defendants[0] } [BR]
+        %endif
       - Case has multiple defendants: ${ word(yesno(are_multiple_defendants)) }
   - Change Answer: defendants[0].address.address
     button: |
