@@ -346,14 +346,6 @@ fields:
     code: |
       name_suffix()
     required: False
-  - Are there multiple plaintiffs in this case?: are_multiple_plaintiffs
-    datatype: yesnoradio
----
-code: |
-  if are_multiple_plaintiffs:
-    plaintiffs = users[0] + ", et.al"
-  else:
-    plaintiffs = users[0]
 ---
 id: plaintiffs address
 question: |
@@ -984,7 +976,12 @@ attachment:
     fields: 
       - "plaintiff": ${ str(users[0]) }
       - "court_county": ${ courts[0].address.county }
-      - "defendant": ${ str(defendants[0]) }
+      - "defendant": |
+         % if are_multiple_defendants:
+         ${ str(defendants[0]) }, et.al. (see attachment containing additional names and addresses)
+         % else:
+         ${ str(defendants[0]) } 
+         % endif
       - "attorney": ${ attorney }
       - "plaintiff_address": ${ users[0].address }
       - "attorney_address": ${ attorney.address }
@@ -1055,16 +1052,11 @@ attachment:
     filename: Civil_Action_Cover_Sheet
     pdf template file: Civil_Action_Cover_Sheet.pdf
     fields: 
-      - "plaintiff": |
-         % if are_multiple_plaintiffs:
-         ${ users }, et.al.
-         % else:
-         ${ users } 
-         % endif
+      - "plaintiff": ${ users }
       - "court_county": ${ courts[0].address.county }
       - "defendant": |
          % if are_multiple_defendants:
-         ${ str(defendants[0]) }, et.al.
+         ${ str(defendants[0]) }, et.al. (see attachment containing additional names and addresses)
          % else:
          ${ str(defendants[0]) } 
          % endif
@@ -1143,12 +1135,7 @@ review:
   - Change Answer: users[0].name.first
     button: |
       **Plaintiff**: [BR]
-        % if are_multiple_plaintiffs:
-        - Name: ${ users }, et.al. [BR]
-        % else:
-        - Name: ${ users } [BR]
-        %endif
-      - Case has multiple plaintffs: ${ word(yesno(are_multiple_plaintiffs)) }
+      ${ users }
   - Change Answer: 
     -  users[0].address.address
     button: |
