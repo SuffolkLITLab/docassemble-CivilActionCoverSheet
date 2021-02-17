@@ -421,6 +421,7 @@ fields:
     show if:
       variable: other_parties[i].person_type
       is: business
+  # this code will be removed
   - Are there multiple defendants in this case?: are_multiple_defendants
     datatype: yesnoradio
 ---
