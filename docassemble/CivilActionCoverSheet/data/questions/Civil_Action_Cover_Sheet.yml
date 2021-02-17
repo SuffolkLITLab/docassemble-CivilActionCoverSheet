@@ -421,9 +421,7 @@ fields:
     show if:
       variable: other_parties[i].person_type
       is: business
-  # this code will be removed
-  - Are there multiple defendants in this case?: are_multiple_defendants
-    datatype: yesnoradio
+  # insert question re multiple defendants
 ---
 id: contract claims
 question: |
@@ -977,12 +975,7 @@ attachment:
     fields: 
       - "plaintiff": ${ str(users[0]) }
       - "court_county": ${ courts[0].address.county }
-      - "defendant": |
-         % if are_multiple_defendants:
-         ${ str(defendants[0]) }, et.al. (see attachment containing additional names and addresses)
-         % else:
-         ${ str(defendants[0]) } 
-         % endif
+      - "defendant": ${ str(defendants[0]) }
       - "attorney": ${ attorney }
       - "plaintiff_address": ${ users[0].address }
       - "attorney_address": ${ attorney.address }
@@ -996,7 +989,10 @@ attachment:
       - "code_number": ${ code_number }
       - "type_of_action": ${ type_of_action }
       - "track": ${ track }
-      - "description_if_other": ${ description_if_other }
+      - "description_if_other": |
+          % if type_of_action == "Other":
+          ${ description_if_other }
+          % endif
       - "class_action_yes": ${ class_action_yes }
       - "claim_under_glc_93a_yes": ${ claim_under_glc_93a_yes }
       - "class_action_no": ${ not class_action_yes }
@@ -1055,12 +1051,7 @@ attachment:
     fields: 
       - "plaintiff": ${ users }
       - "court_county": ${ courts[0].address.county }
-      - "defendant": |
-         % if are_multiple_defendants:
-         ${ str(defendants[0]) }, et.al. (see attachment containing additional names and addresses)
-         % else:
-         ${ str(defendants[0]) } 
-         % endif
+      - "defendant": ${ str(defendants[0]) }
       - "attorney": ${ attorney }
       - "plaintiff_address": ${ users[0].address }
       - "attorney_address": ${ attorney.address }
@@ -1074,7 +1065,10 @@ attachment:
       - "code_number": ${ code_number }
       - "type_of_action": ${ type_of_action }
       - "track": ${ track }
-      - "description_if_other": ${ description_if_other }
+      - "description_if_other": |
+          % if type_of_action == "Other":
+          ${ description_if_other }
+          % endif
       - "class_action_yes": ${ class_action_yes }
       - "claim_under_glc_93a_yes": ${ claim_under_glc_93a_yes }
       - "class_action_no": ${ not class_action_yes }
@@ -1145,12 +1139,7 @@ review:
   - Change Answer: other_parties[0].name.first
     button: |
       **Defendant**: [BR]
-        % if are_multiple_defendants:
-        - Name: ${ defendants[0] }, et.al. [BR]
-        % else:
-        - Name: ${ defendants[0] } [BR]
-        %endif
-      - Case has multiple defendants: ${ word(yesno(are_multiple_defendants)) }
+      ${ defendants[0] }
   - Change Answer: defendants[0].address.address
     button: |
       **Defendant's Address**: [BR]
