@@ -1,0 +1,562 @@
+code: |
+  track_data = [
+    {
+      "super category": "Actions Involving the State / Municipality",
+      "category": "Contract Action involving Commonwealth, Municipality, MBTA, etc.",
+      "code": "AA1",
+      "track": "A"
+    },
+    {
+      "super category": "Actions Involving the State / Municipality",
+      "category": "Tortious Action involving Commonwealth, Municipality, MBTA, etc.",
+      "code": "AB1",
+      "track": "A"
+    },
+    {
+      "super category": "Actions Involving the State / Municipality",
+      "category": "Real Property Action involving Commonwealth, Municipality, MBTA etc.",
+      "code": "AC1",
+      "track": "A"
+    },
+    {
+      "super category": "Actions Involving the State / Municipality",
+      "category": "Equity Action involving Commonwealth, Municipality, MBTA, etc. ",
+      "code": "AD1",
+      "track": "A"
+    },
+    {
+      "super category": "Actions Involving the State / Municipality",
+      "category": "Administrative Action involving Commonwealth, Municipality, MBTA, etc.",
+      "code": "AE1",
+      "track": "A"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Services, Labor, and Materials",
+      "code": "A01",
+      "track": "F"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Goods Sold and Delivered",
+      "code": "A02",
+      "track": "F"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Commercial Paper",
+      "code": "A03",
+      "track": "F"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Employment Contract",
+      "code": "A04",
+      "track": "F"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Consumer Revolving Credit - M.R.C.P. 8.1",
+      "code": "A05",
+      "track": "F"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Insurance Contract",
+      "code": "A06",
+      "track": "F"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Sale or Lease of Real Estate",
+      "code": "A08",
+      "track": "F"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Construction Dispute",
+      "code": "A12",
+      "track": "A"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Interpleader",
+      "code": "A14",
+      "track": "F"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Governance, Conduct, Internal Affairs of Entities",
+      "code": "BA1",
+      "track": "A"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Liability of Shareholders, Directors, Officers, Partners, etc.",
+      "code": "BA3",
+      "track": "A"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Shareholder Derivative",
+      "code": "BB1",
+      "track": "A"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Securities Transactions",
+      "code": "BB2",
+      "track": "A"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Mergers, Consolidations, Sales of Assets, Issuance of Debt, Equity, etc.",
+      "code": "BC1",
+      "track": "A"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Intellectual Property",
+      "code": "BD1",
+      "track": "A"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Proprietary Information or Trade Secrets",
+      "code": "BD2",
+      "track": "A"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Financial Institutions/Funds",
+      "code": "BG1",
+      "track": "A"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Violation of Antitrust or Trade Regulation Laws",
+      "code": "BH1",
+      "track": "A"
+    },
+    {
+      "super category": "Contract/Business Cases",
+      "category": "Other Contract/Business Action - Specify",
+      "code": "A99",
+      "track": "F"
+    },
+    {
+      "super category": "Equitable Remedies",
+      "category": "Specific Performance of a Contract",
+      "code": "D01",
+      "track": "A"
+    },
+    {
+      "super category": "Equitable Remedies",
+      "category": "Reach and Apply",
+      "code": "D02",
+      "track": "F"
+    },
+    {
+      "super category": "Equitable Remedies",
+      "category": "Injunction",
+      "code": "D03",
+      "track": "F"
+    },
+    {
+      "super category": "Equitable Remedies",
+      "category": "Reform/ Cancel Instrument",
+      "code": "D04",
+      "track": "F"
+    },
+    {
+      "super category": "Equitable Remedies",
+      "category": "Equitable Replevin",
+      "code": "D05",
+      "track": "F"
+    },
+    {
+      "super category": "Equitable Remedies",
+      "category": "Contribution or Indemnification",
+      "code": "D06",
+      "track": "F"
+    },
+    {
+      "super category": "Equitable Remedies",
+      "category": "Imposition of a Trust",
+      "code": "D07",
+      "track": "A"
+    },
+    {
+      "super category": "Equitable Remedies",
+      "category": "Minority Shareholder's Suit",
+      "code": "D08",
+      "track": "A"
+    },
+    {
+      "super category": "Equitable Remedies",
+      "category": "Interference in Contractual Relationship",
+      "code": "D09",
+      "track": "F"
+    },
+    {
+      "super category": "Equitable Remedies",
+      "category": "Accounting",
+      "code": "D10",
+      "track": "A"
+    },
+    {
+      "super category": "Equitable Remedies",
+      "category": "Enforcement of Restrictive Covenant",
+      "code": "D11",
+      "track": "F"
+    },
+    {
+      "super category": "Equitable Remedies",
+      "category": "Dissolution of a Partnership",
+      "code": "D12",
+      "track": "F"
+    },
+    {
+      "super category": "Equitable Remedies",
+      "category": "Declaratory Judgment, G.L. c. 231A",
+      "code": "D13",
+      "track": "A"
+    },
+    {
+      "super category": "Equitable Remedies",
+      "category": "Dissolution of a Corporation",
+      "code": "D14",
+      "track": "F"
+    },
+    {
+      "super category": "Equitable Remedies",
+      "category": "Other Equity Action",
+      "code": "D99",
+      "track": "F"
+    },
+    {
+      "super category": "Civil Actions Involving Incarcerated Party",
+      "category": "Contract Action involving an Incarcerated Party",
+      "code": "PA1",
+      "track": "A"
+    },
+    {
+      "super category": "Civil Actions Involving Incarcerated Party",
+      "category": "Tortious Action involving an Incarcerated Party",
+      "code": "PB1",
+      "track": "A"
+    },
+    {
+      "super category": "Civil Actions Involving Incarcerated Party",
+      "category": "Real Property Action involving an Incarcerated Party",
+      "code": "PC1",
+      "track": "F"
+    },
+    {
+      "super category": "Civil Actions Involving Incarcerated Party",
+      "category": "Equity Action involving an Incarcerated Party",
+      "code": "PD1",
+      "track": "F"
+    },
+    {
+      "super category": "Civil Actions Involving Incarcerated Party",
+      "category": "Administrative Action involving an Incarcerated Party",
+      "code": "PE1",
+      "track": "F"
+    },
+    {
+      "super category": "Torts",
+      "category": "Motor Vehicle Negligence - Personal Injury/Property Damage",
+      "code": "B03",
+      "track": "F"
+    },
+    {
+      "super category": "Torts",
+      "category": "Other Negligence - Personal Injury/Property Damage",
+      "code": "B04",
+      "track": "F"
+    },
+    {
+      "super category": "Torts",
+      "category": "Products Liability",
+      "code": "B05",
+      "track": "A"
+    },
+    {
+      "super category": "Torts",
+      "category": "Malpractice - Medical ",
+      "code": "B06",
+      "track": "A"
+    },
+    {
+      "super category": "Torts",
+      "category": "Malpractice - Other",
+      "code": "B07",
+      "track": "A"
+    },
+    {
+      "super category": "Torts",
+      "category": "Wrongful Death - Non-medical",
+      "code": "B08",
+      "track": "A"
+    },
+    {
+      "super category": "Torts",
+      "category": "Defamation",
+      "code": "B15",
+      "track": "A"
+    },
+    {
+      "super category": "Torts",
+      "category": "Asbestos",
+      "code": "B19",
+      "track": "A"
+    },
+    {
+      "super category": "Torts",
+      "category": "Personal Injury - Slip & Fall",
+      "code": "B20",
+      "track": "F"
+    },
+    {
+      "super category": "Torts",
+      "category": "Environmental",
+      "code": "B21",
+      "track": "F"
+    },
+    {
+      "super category": "Torts",
+      "category": "Employment Discrimination",
+      "code": "B22",
+      "track": "F"
+    },
+    {
+      "super category": "Torts",
+      "category": "Fraud, Business Torts, etc.",
+      "code": "BE1",
+      "track": "A"
+    },
+    {
+      "super category": "Torts",
+      "category": "Other Tortious Action",
+      "code": "B99",
+      "track": "F"
+    },
+    {
+      "super category": "Summary Process (Real Property)",
+      "category": "Summary Process - Residential",
+      "code": "S01",
+      "track": "X"
+    },
+    {
+      "super category": "Summary Process (Real Property)",
+      "category": "Summary Process - Commercial/Non-residential",
+      "code": "S02 ",
+      "track": "F"
+    },
+    {
+      "super category": "Real Property",
+      "category": "Land Taking",
+      "code": "C01",
+      "track": "F"
+    },
+    {
+      "super category": "Real Property",
+      "category": "Zoning Appeal, G.L. c. 40A",
+      "code": "C02",
+      "track": "F"
+    },
+    {
+      "super category": "Real Property",
+      "category": "Dispute Concerning Title",
+      "code": "C03",
+      "track": "F"
+    },
+    {
+      "super category": "Real Property",
+      "category": "Foreclosure of a Mortgage",
+      "code": "C04",
+      "track": "X"
+    },
+    {
+      "super category": "Real Property",
+      "category": "Condominium Lien & Charges",
+      "code": "C05",
+      "track": "X"
+    },
+    {
+      "super category": "Real Property",
+      "category": "Other Real Property Action",
+      "code": "C99",
+      "track": "F"
+    },
+    {
+      "super category": "Miscellaneous Civil Actions",
+      "category": "Foreign Discovery Proceeding",
+      "code": "E18",
+      "track": "X"
+    },
+    {
+      "super category": "Miscellaneous Civil Actions",
+      "category": "Prisoner Habeas Corpus",
+      "code": "E97",
+      "track": "X"
+    },
+    {
+      "super category": "Miscellaneous Civil Actions",
+      "category": "Lottery Assignment, G.L. c. 10, § 28",
+      "code": "E22",
+      "track": "X"
+    },
+    {
+      "super category": "Abuse/Harassment Prevention",
+      "category": "Abuse Prevention Petition, G.L. c. 209A",
+      "code": "E15",
+      "track": "X"
+    },
+    {
+      "super category": "Abuse/Harassment Prevention",
+      "category": "Protection from Harassment, G.L. c. 258E",
+      "code": "E21",
+      "track": "X"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Appeal from Administrative Agency, G.L. c. 30A",
+      "code": "E02",
+      "track": "X"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Certiorari Action, G.L. c. 249, § 4",
+      "code": "E03",
+      "track": "X"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Confirmation of Arbitration Awards",
+      "code": "E05",
+      "track": "X"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Mass Antitrust Act, G.L. c. 93, § 9",
+      "code": "E06",
+      "track": "A"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Mass Antitrust Act, G.L. c. 93, § 8",
+      "code": "E07",
+      "track": "X"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Appointment of a Receiver",
+      "code": "E08",
+      "track": "X"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Construction Surety Bond, G.L. c. 149, §§ 29, 29A",
+      "code": "E09",
+      "track": "A"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Summary Process Appeal",
+      "code": "E10",
+      "track": "X"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Worker's Compensation",
+      "code": "E11",
+      "track": "X"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Auto Surcharge Appeal",
+      "code": "E16",
+      "track": "X"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Civil Rights Act, G.L. c.12, § 11H",
+      "code": "E17",
+      "track": "A"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Appeal from District Court Commitment, G.L. c.123, § 9(b)",
+      "code": "E24",
+      "track": "X"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Pleural Registry (Asbestos cases)",
+      "code": "E25",
+      "track": "X"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Forfeiture, G.L. c. 265, § 56",
+      "code": "E94",
+      "track": "X"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Forfeiture, G.L. c. 94C, § 47",
+      "code": "E95",
+      "track": "F"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Other Administrative Action",
+      "code": "E99",
+      "track": "X"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Medical Malpractice - Tribunal only, G.L. c. 231, § 60B",
+      "code": "Z01",
+      "track": "F"
+    },
+    {
+      "super category": "Administrative Civil Actions",
+      "category": "Appeal Bond Denial",
+      "code": "Z02",
+      "track": "X"
+    },
+    {
+      "super category": "Sex Offender Review",
+      "category": "SDP Commitment, G.L. c. 123A, § 12",
+      "code": "E12",
+      "track": "X"
+    },
+    {
+      "super category": "Sex Offender Review",
+      "category": "SDP Petition, G.L. c. 123A, § 9(b)",
+      "code": "E14",
+      "track": "X"
+    },
+    {
+      "super category": "Restricted Civil Actions",
+      "category": "Sex Offender Registry, G.L. c. 6, § 178M",
+      "code": "E19",
+      "track": "X"
+    },
+    {
+      "super category": "Restricted Civil Actions",
+      "category": "Minor Seeking Consent, G.L. c.112, § 12S",
+      "code": "E27",
+      "track": "X"
+    },
+    {
+      "super category": "Other",
+      "category": "Other",
+      "code": "",
+      "track": ""
+     }
+  ]
+  
