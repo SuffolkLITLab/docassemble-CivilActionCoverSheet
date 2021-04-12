@@ -52,6 +52,9 @@ code: |
   user_role = "plaintiff"
   users.there_is_another = False
   basic_questions_intro_screen 
+  if is_eligible:
+    is_representing_plaintiff
+  terminate_interview
   # Set the preferred/allowed courts for this interview
   preferred_court = interview_metadata["Civil_Action_Cover_Sheet0026"]["preferred court"]
   allowed_courts = interview_metadata["Civil_Action_Cover_Sheet0026"]["allowed courts"]
@@ -106,6 +109,8 @@ objects:
 id: representation
 question: |
   Representation
+subquestion: |
+  Is my case eligble for Superior Court: ${is_eligible}
 fields:
   - Are you an attorney representing a plaintiff?: is_representing_plaintiff
     datatype: yesnoradio
@@ -113,6 +118,30 @@ fields:
     show if: 
       variable: is_representing_plaintiff
       is: True
+---
+id: Superior Court threshold 
+question: |
+  Is the claim eligible for Superior Court? 
+subquestion: |
+  The Superior Court has original jurisdiction of first-degree murder cases and other crimes. In addition, it has original jurisdiction of:[BR]
+  *  Civil actions over $50,000[BR]
+  *  Matters where parties are seeking equitable relief[BR]
+  *  Actions including labor disputes where parties are seeking injunctive relief[BR]
+
+  This means that to be heard in Superior Court, your case must involve either claims of $50,000 or more, a mutual agreement to seek equitable relief, or a mutual agreement to seek injunctive relief. 
+# THE ABOVE DESCRIPTION MUST BE VERIFIED BY A SUBJECT MATTER EXPERT
+fields:
+  - Does your claim qualify for Superior Court?: is_eligible 
+    datatype: yesnoradio
+---
+id: terminate interview
+question: |
+  Your case is not eligible for Superior Court
+# subquestion: |
+  # Please file your claim in the appropriate court at [Court Forms Online](https://courtformsonline.org/)
+event: terminate_interview
+buttons:
+  - Exit: exit
 ---
 id: attorney name
 question: |
