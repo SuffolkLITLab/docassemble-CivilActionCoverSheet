@@ -109,8 +109,6 @@ objects:
 id: representation
 question: |
   Representation
-subquestion: |
-  Is my case eligble for Superior Court: ${is_eligible}
 fields:
   - Are you an attorney representing a plaintiff?: is_representing_plaintiff
     datatype: yesnoradio
