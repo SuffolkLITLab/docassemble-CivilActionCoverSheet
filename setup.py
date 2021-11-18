@@ -43,7 +43,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
     return out
 
 setup(name='docassemble.CivilActionCoverSheet',
-      version='2.0.0',
+      version='2.0.1',
       description=(''),
       long_description='# docassemble.CivilActionCoverSheet\r\n\r\n\r\n\r\n## Author\r\n\r\nLance Godard<p>\r\nMaeve MacGlinchey\r\n',
       long_description_content_type='text/markdown',
@@ -53,7 +53,7 @@ setup(name='docassemble.CivilActionCoverSheet',
       url='https://docassemble.org',
       packages=find_packages(),
       namespace_packages=['docassemble'],
-      install_requires=['docassemble.MACourts>=0.0.47', 'docassemble.assemblylinewizard>=0.57'],
+      install_requires=['docassemble.MACourts>=0.0.58.2'],
       zip_safe=False,
       package_data=find_package_data(where='docassemble/CivilActionCoverSheet/', package='docassemble.CivilActionCoverSheet'),
      )
