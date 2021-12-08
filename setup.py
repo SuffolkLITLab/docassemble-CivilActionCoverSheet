@@ -53,7 +53,7 @@ setup(name='docassemble.CivilActionCoverSheet',
       url='https://docassemble.org',
       packages=find_packages(),
       namespace_packages=['docassemble'],
-      install_requires=['docassemble.MACourts>=0.0.58.2', 'docassemble.MAVirtualCourt>=1.0.22'],
+      install_requires=['docassemble.MACourts>=0.0.58.2'],
       zip_safe=False,
       package_data=find_package_data(where='docassemble/CivilActionCoverSheet/', package='docassemble.CivilActionCoverSheet'),
      )
