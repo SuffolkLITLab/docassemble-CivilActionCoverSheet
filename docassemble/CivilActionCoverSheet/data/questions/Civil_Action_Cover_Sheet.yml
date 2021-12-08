@@ -617,7 +617,7 @@ id: action and track designation
 question: |
   Case Type
 subquestion: |
-  For instructions on how to fill out this section, refer to [Page 2 of the Civil Action Cover Sheet](https://www.mass.gov/doc/civil-action-cover/download).
+  For instructions on how to fill out this section, refer to [Page 2 of the Civil Action Cover Sheet](https://courtforms.jud.state.ma.us/publicforms/SC0001).
 fields: 
   - Type of Case: super_cat
     input type: radio
@@ -636,7 +636,7 @@ id: track designation
 question: |
   What is the Type of Action for this case?
 subquestion: |
-  For instructions on how to fill out this section, refer to [Page 2 of the Civil Action Cover Sheet](https://www.mass.gov/doc/civil-action-cover/download).
+  For instructions on how to fill out this section, refer to [Page 2 of the Civil Action Cover Sheet](https://courtforms.jud.state.ma.us/publicforms/SC0001).
 fields: 
   - 'If case type is "Other," please describe the case then select "Other" below': description_if_other
     show if: 
@@ -1126,7 +1126,7 @@ review:
   - Change Answer: agrees_to_certify
     button: |
       Certification of Compliance with Rule 5:[BR]
-      ${ agrees_to_certify } on ${ certification_signature_date.format() }
+      ${ agrees_to_certify } on ${ signature_date.format() }
   - Change Answer: users[0].name.first
     button: |
       **Plaintiff**: [BR]
