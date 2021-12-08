@@ -6,6 +6,9 @@ include:
 ---
 metadata:
   title: Civil Action Cover Sheet
+  authors:
+    - Maeve MacGlinchey
+    - Lance Godard
 ---
 code: |
   github_repo_name = "docassemble-CivilActionCoverSheet"
