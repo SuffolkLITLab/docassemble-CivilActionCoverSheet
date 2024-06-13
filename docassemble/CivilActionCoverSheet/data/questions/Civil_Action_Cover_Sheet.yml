@@ -6,9 +6,51 @@ include:
 ---
 metadata:
   title: Civil Action Cover Sheet
+  short title: Civil Action Cover Sheet
   authors:
     - Maeve MacGlinchey
     - Lance Godard
+  description: |
+    If you are filing a civil action in the Superior Court, you must complete a Civil Action Cover Sheet.
+     This form is required for all civil actions filed in the Superior Court. 
+     
+     The form asks for basic information about the parties and the kind of case.
+  can_I_use_this_form: |
+    You can use this form if you are filing a civil action in the Superior Court.
+  before_you_start: |
+    Before you start, you will need the following information:
+    
+    - Your name and address
+    - The name and address of the person or business you are suing
+    - The type of case you are filing
+    - The type of action you are filing
+    - The kind of claim you ar making
+    - The amount of money you are claiming
+    - The names of any related actions pending in the Superior Court
+  maturity: production
+  estimated_completion_minutes: 20
+  estimated_completion_delta: 10
+  languages:
+    - en
+  help_page_url: https://www.mass.gov/news/filling-out-the-superior-court-civil-action-cover-sheet
+  help_page_title: Filling out the Civil Action Cover Sheet
+  LIST_topics: 
+    - TO-00-00-00-00
+    - CO-07-00-00-00
+  tags: 
+    - TO-00-00-00-00
+    - CO-07-00-00-00
+  jurisdiction: NAM-US-US+MA
+  original_form: https://courtforms.jud.state.ma.us/publicforms/SC0001
+  review_date: 2024-06-01
+  form_titles:
+    - Superior Court Civil Action Cover Sheet
+  form_numbers:
+    - SC0001
+  fees:
+    - Filing fee: 0.00
+  update_notes: |
+    It looks like a new form was published in February 2024.
 ---
 code: |
   github_repo_name = "docassemble-CivilActionCoverSheet"

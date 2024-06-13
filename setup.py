@@ -43,7 +43,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
     return out
 
 setup(name='docassemble.CivilActionCoverSheet',
-      version='3.0.0',
+      version='3.0.1',
       description=(''),
       long_description='# docassemble.CivilActionCoverSheet\r\n\r\n\r\n\r\n## Author\r\n\r\nLance Godard<p>\r\nMaeve MacGlinchey\r\n',
       long_description_content_type='text/markdown',
