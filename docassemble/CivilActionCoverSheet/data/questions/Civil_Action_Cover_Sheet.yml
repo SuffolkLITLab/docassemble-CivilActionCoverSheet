@@ -351,7 +351,9 @@ question: |
   Does this action include a claim involving collection of a debt?
 subquestion: |
   The debt must be incurred pursuant to a revolving credit agreement according to [Mass. R. Civ. P. 8.1(a)](https://www.mass.gov/rules-of-civil-procedure/civil-procedure-rule-81-special-requirements-for-certain-consumer-debts).
-yesno: collection_of_debt_yes
+fields:
+  - no label: collection_of_debt_yes
+    datatype: yesnoradio
 ---
 comment: |
   id: jury claim
@@ -361,6 +363,7 @@ comment: |
     Have you, or someone on your behalf, made a jury claim for the amounts covered in this civil action?
   yesno: jury_claim_made_yes
 ---
+id: "hidden logic"
 question: |
   Hidden logic
 subquestion: |
@@ -659,6 +662,7 @@ sections:
 #     required: False
 #   - 'BBO number': bbo_number
 # ---
+id: "what is the defendants address"
 question: |
   What is the Defendant's address?
 subquestion: |
@@ -667,6 +671,7 @@ fields:
   - 'Defendant address': defendants[0].address
     input type: area
 ---
+id: "what is the plaintiffs address"
 question: |
   What is the Plaintiff's address?
 subquestion: |
