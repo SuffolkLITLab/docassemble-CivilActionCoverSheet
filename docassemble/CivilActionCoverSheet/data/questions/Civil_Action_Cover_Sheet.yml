@@ -253,9 +253,9 @@ depends on:
 ---
 id: names of opposing party
 question: |
-  Who is the defendant or respondent in this case?
+  Who is the Defendant or Respondent in this case?
 fields:
-  - Is the defendant or respondent a person or a business?: other_parties[i].person_type
+  - Is the Defendant or Respondent a person or a business?: other_parties[i].person_type
     input type: radio
     choices:
       - Business or organization: business
