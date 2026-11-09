@@ -65,7 +65,7 @@ code: |
     'title': 'Civil Action Cover Sheet Initial Commit',
     'short title': 'Civil Action Cover Sheet',
     'description': 'Placeholder text',
-    'original_form': 'https://www.mass.gov/files/documents/2016/08/tf/civil-action-cover-sheet-specific-counties.pdf',
+    'original_form': 'https://courtforms.jud.state.ma.us/content/profiles/htmlForm.html?contentRoot=crx:/content/dam/formsanddocuments/publicforms&template=SC0001.xdp',
     'allowed courts': [
       'Superior Court',
     ],
@@ -336,7 +336,7 @@ fields:
     min: 0
     required: False
     help: |
-      Insert help text that descibes other documented damages.
+      Insert help text that describes other documented damages.
   - 'Description of other documented damages': documented_items_of_damages_other
     required: False
     input type: area
@@ -456,9 +456,10 @@ objects:
   -  track_desc: DADict
   -  sc_list1: DADict
 ---
-mandatory: True
 objects from file:
   - track_data: track_data.yml
+---
+mandatory: True
 code: |
   sc_list = []
   for cat in track_data:
@@ -484,8 +485,6 @@ fields:
 section: super_cat
 ---
 mandatory: True
-objects from file:
-  - track_data: track_data.yml
 code: |
   track_desc = [track['category'] for track in track_data if track['super category'] == super_cat]
 ---
